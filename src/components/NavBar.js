@@ -1,14 +1,15 @@
 import React from 'react'
 import { FiSearch } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import movieHutLogo from '../assets/images/MovieHutLogo.png'
 const NavBar = () => {
     return (
         <div id=''>
             <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io">
+    <Link to='/' class="navbar-item" >
       <img src={movieHutLogo} width="112" height="50"/>
-    </a>
+    </Link>
 
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
@@ -19,17 +20,21 @@ const NavBar = () => {
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item">
+      <Link to="/" class="navbar-item">
         Home
-      </a>
+      </Link>
 
-      <a class="navbar-item">
+      <Link to='' class="navbar-item">
         Movies
-      </a>
+      </Link>
 
-      <a class="navbar-item">
+      <Link to='' class="navbar-item">
         TV Shows
-      </a>
+      </Link>
+
+      <Link to='/admin' class="navbar-item">
+          Admin
+      </Link>
     
     </div>
 

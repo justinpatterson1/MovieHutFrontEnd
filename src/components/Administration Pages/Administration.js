@@ -1,16 +1,48 @@
-import React from 'react'
+import React,{useContext,useEffect} from 'react'
+
+import MovieContext from '../../Context/MovieContext'
+import MovieRow from '../Administration Pages/MovieRow'
 
 
 const Administration = () => {
+
+    const {movie,setMovie} = useContext(MovieContext);
+    console.log(movie)
+   
+
+    const movieList = ()=>
+    {
+        fetch(`http://localhost:4000/movie/Movie`)
+        .then(res=>res.json())
+        .then((json)=>{
+        
+            setMovie(json.data)
+            console.log(json.data)
+        })
+        .catch(err=>console.log(err))
+    }
+
+    const tvShowList = ()=>{
+        fetch(`http://localhost:4000/movie/Tv Show`)
+        .then(res=>res.json())
+        .then((json)=>{
+        
+            setMovie(json.data)
+            console.log(json.data)
+        })
+        .catch(err=>console.log(err))
+    }
+
+   
     return (
         <div id='admin-page'>
         <div id="type-selector"  >
             <div className='grid col-2' style={{textAlign:"center"}}>
                 <div style={{borderRight:"2px solid white"}}>
-                     <div>Movies</div>
+                     <div onClick={movieList}>Movies</div>
                 </div>
                 <div>
-                    <div>Tv Show</div>
+                    <div onClick={tvShowList}>Tv Show</div>
                 </div>
                
             </div>
@@ -25,16 +57,11 @@ const Administration = () => {
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>Batman</td>
-                <td>9.6</td>
-                <td>
-                    <input type="checkbox" name="featured" id="featured" />
-                </td>
-                <td>edit</td>
-                <td>delete</td>
-            </tr>
+           {
+                
+                movie.map(content=>(<MovieRow id={content._id} key={content._id} name={content.name} rating={content.rating} />))
+                }
+           
         </table>
         
     </div>

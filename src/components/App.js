@@ -1,18 +1,45 @@
+import React,{useState,useEffect} from 'react'
 import '../assets/css/App.css';
 import { BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from 'react-router-dom'
+import MovieContext from '../Context/MovieContext'
 import HomePage from '../pages/HomePage';
+import AdminPage from '../pages/AdminPage';
+
+
 
 function App() {
+
+  const [movie,setMovie] = useState([{
+    name:"",
+    rating:0,
+    price:0,
+    featured:false,
+    type:"movie"
+  }]);
+
+  useEffect(() => {
+
+    fetch(`http://localhost:4000/movie`)
+    .then(res=>res.json())
+    .then((json)=>{
+    
+        setMovie(json.data)
+        console.log(json.data)
+    })
+    .catch(err=>console.log(err))
+  },[])
+
   return (
     <div >
        
-          {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+         
         <Router> 
+
+        <MovieContext.Provider value={{movie,setMovie}}>
 
           <Switch>
 
@@ -22,8 +49,9 @@ function App() {
 
             </Route>
 
-            <Route exact path="">
+            <Route exact path="/admin">
 
+              <AdminPage/>
 
             </Route>
 
@@ -33,7 +61,8 @@ function App() {
 
             </Route>
 
-          </Switch>
+            </Switch>
+        </MovieContext.Provider>
     </Router>
     </div>
   );
