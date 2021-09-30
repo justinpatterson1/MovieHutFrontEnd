@@ -14,7 +14,7 @@ const MovieRow = ({id,name,rating}) => {
           }
         })
 
-        const allMovies = [...movie];
+         const allMovies = [...movie];
          const deletedMovie = allMovies.findIndex(m => m._id === id)
 
           allMovies.splice(deletedMovie,1)
@@ -25,6 +25,7 @@ const MovieRow = ({id,name,rating}) => {
     
     }
     return (
+        
         <tr>
             <td></td>
             <td>{name}</td>

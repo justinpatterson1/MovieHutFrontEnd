@@ -8,10 +8,13 @@ import { BrowserRouter as Router,
 import MovieContext from '../Context/MovieContext'
 import HomePage from '../pages/HomePage';
 import AdminPage from '../pages/AdminPage';
+import EditFormContext from '../Context/EditFormContext';
 
 
 
 function App() {
+
+  const [editFormVisible,setEditFormVisible] = useState(false);
 
   const [movie,setMovie] = useState([{
     name:"",
@@ -40,7 +43,7 @@ function App() {
         <Router> 
 
         <MovieContext.Provider value={{movie,setMovie}}>
-
+        <EditFormContext.Provider value={{editFormVisible,setEditFormVisible}}>
           <Switch>
 
             <Route exact path="/">
@@ -62,6 +65,7 @@ function App() {
             </Route>
 
             </Switch>
+         </EditFormContext.Provider>
         </MovieContext.Provider>
     </Router>
     </div>

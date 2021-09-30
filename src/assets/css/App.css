@@ -41,12 +41,17 @@ body{
   grid-template-columns: repeat(6,1fr);
 }
 
+.hide{
+  display: none;
+}
 .align-items-center{
   align-items: center;
 }
 
 #admin-page{
-  
+
+
+  background-color: #081c2c;
 
 }
 #type-selector
@@ -81,3 +86,25 @@ body{
    margin-top: 20px;
 }
 
+#edit-modal{
+  position:absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(128, 128, 128, 0.589);
+}
+
+#edit-modal > div > div{
+ 
+  width:40%;
+  background-Color:#2596be;
+  align-items:center;
+  justify-self: center;
+ 
+}
+
+#form-div{
+  padding: 20px 40px;
+  
+}
