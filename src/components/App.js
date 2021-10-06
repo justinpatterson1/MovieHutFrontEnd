@@ -21,7 +21,10 @@ function App() {
     rating:0,
     price:0,
     featured:false,
-    type:"movie"
+    description:"",
+    type:"movie",
+    genre:"",
+    trailer:""
   }]);
 
   useEffect(() => {
