@@ -2,6 +2,8 @@ import React,{useContext,useState} from 'react'
 import {ImCancelCircle} from 'react-icons/im'
 import EditFormContext from '../../Context/EditFormContext'
 import MovieContext from '../../Context/MovieContext'
+import UpdateContext from '../../Context/UpdateContext'
+import FormInputContext from '../../Context/FormInputContext'
 import {useHistory} from "react-router-dom"
 
 
@@ -9,18 +11,20 @@ const EditModal = () => {
 
     const history = useHistory();
     const {editFormVisible,setEditFormVisible} = useContext(EditFormContext);
+    const {update,setUpdate} = useContext(UpdateContext)
     const{movie,setMovie} = useContext(MovieContext);
-    const[formInput,setFormInput] = useState({    
-        name:"",
-        rating:0,
-        price:0,
-        featured:false,
-        description:"",
-        type:"",
-        genre:"",
-        trailer:"",
-        img:[]
-})
+    const {formInput,setFormInput} = useContext(FormInputContext)
+//     const[formInput,setFormInput] = useState({    
+//         name:"",
+//         rating:0,
+//         price:0,
+//         featured:false,
+//         description:"",
+//         type:"",
+//         genre:"",
+//         trailer:"",
+//         img:""
+// })
 
 
 
@@ -28,7 +32,8 @@ const EditModal = () => {
        
         evt.preventDefault();
 
-        let image= document.querySelector(".file-input")
+        let image= document.querySelector(".file-input") //formInput.img 
+
 
         const formData = new FormData()
 
@@ -71,16 +76,55 @@ const EditModal = () => {
         .catch(err => `error is ${err}`)
     }
 
+    const editItem = ()=>{
+
+        const id = editFormVisible.id;
+        alert(id)
+        
+        let image= document.querySelector(".file-input")
+        
+        const formData = new FormData()
+
+        formData.append("name",formInput.name)
+        formData.append("rating",formInput.rating)
+        formData.append("price",formInput.price)
+        formData.append("featured",formInput.featured)
+        formData.append("description",formInput.description)
+        formData.append("type",formInput.type)
+        formData.append("genre",formInput.genre)
+        formData.append("trailer",formInput.trailer)
+        formData.append("img",image.files[0])
+
+
+        fetch(`http://localhost:4000/movie/${id}`,{
+        method:'PUT',
+        body:formData
+
+        })
+    }
+
+
     return (
-        <div id='edit-modal' className={editFormVisible === true ? "":"hide"} >
+        <div id='edit-modal' className={editFormVisible.visibility === true ? "":"hide"} >
             <div className='grid col-1' style={{alignItems:"center",height:"100%"}}>
                 <div className='grid col-1 mt-6 '>
                     <div className='grid col-1' style={{justifyItems:'right',marginTop:'20px',marginRight:'20px',fontSize:'2rem'}} onClick={()=>{
-                        setEditFormVisible(false)
+                        setEditFormVisible({visibility:false,id:0})
                     }}>
                         <ImCancelCircle/>
                     </div>
-                    <form id='form-div' onSubmit={addNewMovie}>
+                    <form id='form-div' onSubmit={()=>{
+                        
+                        if(update){
+
+                            editItem()
+                        }else{
+                            addNewMovie()
+                        }
+                        
+                       
+                        
+                        }}>
                         <div class="field">
                             <label class="label">Title</label>
                                 <div class="control">
@@ -179,7 +223,7 @@ const EditModal = () => {
                                 True
                             </label>
                             <label class="radio">
-                                <input type="radio" name="answer" value='false' checked onChange={(evt)=>{
+                                <input type="radio" name="answer" value='false' onChange={(evt)=>{
                                         
                                         setFormInput({
                                             ...formInput,
@@ -192,7 +236,7 @@ const EditModal = () => {
 
                         <div class="file mt-3">
                             <label class="file-label">
-                                <input className="file-input" type="file" name="file" onChange={(evt)=>{
+                                <input className="file-input" type="file" name="file" value={formInput.img} onChange={(evt)=>{
 
                                     setFormInput({
                                         ...formInput,

@@ -55,7 +55,7 @@ const Administration = () => {
             </div>
         </div>
         <p className='grid col-1' style={{justifyItems:'right',paddingRight:'60px',fontSize:'2rem',color:'white'}} onClick={()=>{
-            setEditFormVisible(true)
+            setEditFormVisible({visibility:true,id:0})
         }}>
             <AiFillFileAdd/> 
         </p>

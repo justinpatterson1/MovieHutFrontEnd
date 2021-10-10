@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Slider from "react-slick";
 
 const Carousel = ()=> {
@@ -11,28 +11,28 @@ const Carousel = ()=> {
     autoplay: true,
     autoplaySpeed: 5000
   };
+
+
+  const [flyer,setFlyer] = useState(
+      {slides:[1,2,3,4,5,6]
+    })
+
   return (
     <div style={{width:'70%',margin:'0 auto'}}>
 
         <Slider {...settings}>
-            <div>
-                <h3>1</h3>
-            </div>
-            <div>
-                <h3>2</h3>
-            </div>
-            <div>
-                <h3>3</h3>
-            </div>
-            <div>
-                <h3>4</h3>
-            </div>
-            <div>
-                <h3>5</h3>
-            </div>
-            <div>
-                <h3>6</h3>
-            </div>
+           {
+               flyer.slides.map(fly=>(
+                   
+                       <div>
+                          <h3>{flyer.slides}</h3>
+                        </div>
+
+                   
+               )) 
+                  
+            }       
+            
          </Slider>
     </div>
     

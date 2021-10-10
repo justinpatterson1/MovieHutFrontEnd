@@ -1,20 +1,24 @@
 import React,{useState,useEffect} from 'react'
 import '../assets/css/App.css';
+import MovieContext from '../Context/MovieContext'
+import HomePage from '../pages/HomePage';
+import AdminPage from '../pages/AdminPage';
+import EditFormContext from '../Context/EditFormContext';
+import UpdateContext from '../Context/UpdateContext';
+import FormInputContext from '../Context/FormInputContext';
 import { BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from 'react-router-dom'
-import MovieContext from '../Context/MovieContext'
-import HomePage from '../pages/HomePage';
-import AdminPage from '../pages/AdminPage';
-import EditFormContext from '../Context/EditFormContext';
+
 
 
 
 function App() {
 
-  const [editFormVisible,setEditFormVisible] = useState(false);
+  const [editFormVisible,setEditFormVisible] = useState({visibility:false, id:0});
+  const [update,setUpdate] = useState(false);
 
   const [movie,setMovie] = useState([{
     name:"",
@@ -26,6 +30,18 @@ function App() {
     genre:"",
     trailer:""
   }]);
+
+  const[formInput,setFormInput] = useState({    
+    name:"",
+    rating:0,
+    price:0,
+    featured:false,
+    description:"",
+    type:"",
+    genre:"",
+    trailer:"",
+    img:""
+})
 
   useEffect(() => {
 
@@ -46,7 +62,9 @@ function App() {
         <Router> 
 
         <MovieContext.Provider value={{movie,setMovie}}>
-        <EditFormContext.Provider value={{editFormVisible,setEditFormVisible}}>
+         <EditFormContext.Provider value={{editFormVisible,setEditFormVisible}}>
+           <UpdateContext.Provider value={{update,setUpdate}}>
+             <FormInputContext.Provider value={{formInput,setFormInput}}>
           <Switch>
 
             <Route exact path="/">
@@ -68,6 +86,9 @@ function App() {
             </Route>
 
             </Switch>
+
+            </FormInputContext.Provider>
+          </UpdateContext.Provider>
          </EditFormContext.Provider>
         </MovieContext.Provider>
     </Router>
