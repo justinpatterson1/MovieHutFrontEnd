@@ -54,7 +54,7 @@ const Administration = () => {
         <EditModal/>
         <div id='admin-page' className="pb-3">
       
-        <div id="type-selector"  >
+        <div className="type-selector"  >
             <div className='grid col-3' style={{textAlign:"center"}}>
             <div style={{borderRight:"2px solid white"}}>
                      <div onClick={allShows}>All</div>

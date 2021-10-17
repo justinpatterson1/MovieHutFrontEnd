@@ -27,7 +27,7 @@ const NavBar = () => {
         Home
       </Link>
 
-      <Link to='' class="navbar-item">
+      <Link to='/Movies' class="navbar-item">
         Movies
       </Link>
 
