@@ -7,6 +7,7 @@ import EditFormContext from '../Context/EditFormContext';
 import UpdateContext from '../Context/UpdateContext';
 import FormInputContext from '../Context/FormInputContext';
 import FlyerContext from '../Context/FlyerContext'
+import FeaturedFilmContext from '../Context/FeaturedFilmContext';
 
 import { BrowserRouter as Router,
   Switch,
@@ -20,6 +21,7 @@ import { BrowserRouter as Router,
 function App() {
 
   const [editFormVisible,setEditFormVisible] = useState({visibility:false, id:0});
+  const [featuredFilms,setFeaturedFilms] = useState([])
   const [update,setUpdate] = useState(false);
   
   const [flyer,setFlyer] = useState([
@@ -73,6 +75,17 @@ useEffect(() => {
     .catch(err=>console.log(err))
   },[])
 
+  
+
+    useEffect(() => {
+       fetch(`http://localhost:4000/movie?featured=true`)
+       .then(res=>res.json())
+       .then((json)=>{
+           setFeaturedFilms(json.data)
+           console.log(json.data)
+       })
+    }, [])
+
   return (
     <div >
        
@@ -84,6 +97,7 @@ useEffect(() => {
            <UpdateContext.Provider value={{update,setUpdate}}>
              <FormInputContext.Provider value={{formInput,setFormInput}}>
                <FlyerContext.Provider value={{flyer,setFlyer}}>
+                 <FeaturedFilmContext.Provider value={{featuredFilms,setFeaturedFilms}}>
           <Switch>
 
             <Route exact path="/">
@@ -106,6 +120,7 @@ useEffect(() => {
 
             </Switch>
 
+                </FeaturedFilmContext.Provider>
               </FlyerContext.Provider>
             </FormInputContext.Provider>
           </UpdateContext.Provider>
