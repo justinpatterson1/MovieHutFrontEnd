@@ -31,7 +31,7 @@ const NavBar = () => {
         Movies
       </Link>
 
-      <Link to='' class="navbar-item">
+      <Link to='/Tv Shows' class="navbar-item">
         TV Shows
       </Link>
 

@@ -3,7 +3,8 @@ import '../assets/css/App.css';
 import MovieContext from '../Context/MovieContext'
 import HomePage from '../pages/HomePage';
 import AdminPage from '../pages/AdminPage';
-import MoviesPage from '../pages/MoviePage'
+import MoviesPage from '../pages/MoviePage';
+import TvShowPage from '../pages/TvShowPage';
 import EditFormContext from '../Context/EditFormContext';
 import UpdateContext from '../Context/UpdateContext';
 import FormInputContext from '../Context/FormInputContext';
@@ -111,6 +112,11 @@ useEffect(() => {
             <Route exact path="/Movies">
 
               <MoviesPage/>
+
+            </Route>
+            <Route exact path="/Tv Shows">
+
+              <TvShowPage/>
 
             </Route>
             <Route exact path="/admin">
