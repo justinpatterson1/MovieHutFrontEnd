@@ -31,7 +31,7 @@ const EditModal = () => {
     const addNewMovie = (evt)=>{
        
         
-        //evt.preventDefault();
+        evt.preventDefault();
 
         alert("Hey")
 
@@ -86,7 +86,9 @@ const EditModal = () => {
 
 
 
-    const editItem = ()=>{
+    const editItem = (evt)=>{
+
+        evt.preventDefault();
 
         const id = editFormVisible.id;
         alert(id)
@@ -123,13 +125,13 @@ const EditModal = () => {
                     }}>
                         <ImCancelCircle/>
                     </div>
-                    <form id='form-div' onSubmit={()=>{
+                    <form id='form-div' onSubmit={(evt)=>{
                         
                         if(update){
 
-                            editItem()
+                            editItem(evt)
                         }else{
-                             addNewMovie()
+                             addNewMovie(evt)
                         }
 
                        

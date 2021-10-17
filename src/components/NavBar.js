@@ -1,11 +1,14 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { FiSearch } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import movieHutLogo from '../assets/images/MovieHutLogo.png'
+import Search from '../components/Search';
 const NavBar = () => {
+
+  const [ searchBarVisibility, setSearchBarVisibility] = useState(false)
     return (
-        <div id=''>
-            <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div id='nav'>
+            <nav className="navbar mb-0" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <Link to='/' class="navbar-item" >
       <img src={movieHutLogo} width="112" height="50"/>
@@ -43,7 +46,9 @@ const NavBar = () => {
 
 
         <div class="buttons">
-        <div className='mr-4' style={{fontSize:'2rem'}}>
+        <div className='mr-4' style={{fontSize:'2rem'}} onClick={()=>{
+          setSearchBarVisibility(true)
+        }}>
             <FiSearch/>     
         </div>
           <a class="button is-primary">
@@ -57,6 +62,7 @@ const NavBar = () => {
     </div>
   </div>
 </nav>
+<Search setSearchBarVisibility={setSearchBarVisibility} searchBarVisibility={searchBarVisibility} />
         </div>
     )
 }

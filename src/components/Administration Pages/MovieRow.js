@@ -74,6 +74,41 @@ const MovieRow = ({id,name,rating}) => {
 
     }
 
+    const promoteShow = ()=>{
+
+        let movieToBeUpdated = [...movie];
+
+        movieToBeUpdated = movieToBeUpdated.find( m => { return m._id === id})
+
+        const isPromoted = true;
+
+        movieToBeUpdated.promoted = isPromoted
+
+        console.log(movieToBeUpdated)
+        fetch(`http://localhost:4000/movie/${id}`,{
+            method:'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+              },
+            body:JSON.stringify(movieToBeUpdated)
+        })
+        .then(res=>res.json())
+        .then((json)=>{
+        
+            setFlyer([...flyer,{id:movieToBeUpdated._id,name:movieToBeUpdated.img}])
+            console.log(json.data)
+        })
+        .catch(err=>console.log(err))
+                  // .then(res => res.json())
+                //    .then((json)=>{
+                        
+                //         setFlyer([...flyer,{id:json.data._id,name:json.data.img}])
+                //    })             
+                    
+                //     }} />
+    }
+
     const check = ()=>{
         setPromote(true)
     }
@@ -98,12 +133,7 @@ const MovieRow = ({id,name,rating}) => {
             </td>
             <td>
                 <input type="checkbox" name="promote" id="promote" onClick={()=>{
-                   fetch(`http://localhost:4000/movie/${id}`)
-                   .then(res => res.json())
-                   .then((json)=>{
-                        
-                        setFlyer([...flyer,{id:json.data._id,name:json.data.img}])
-                   })             
+                   promoteShow()           
                     
                     }} />
             </td>

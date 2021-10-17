@@ -12,6 +12,17 @@ const Administration = () => {
     const {editFormVisible,setEditFormVisible} = useContext(EditFormContext)
     console.log(movie)
    
+    const allShows = ()=>
+    {
+        fetch(`http://localhost:4000/movie`)
+        .then(res=>res.json())
+        .then((json)=>{
+        
+            setMovie(json.data)
+            console.log(json.data)
+        })
+        .catch(err=>console.log(err))
+    }
 
     const movieList = ()=>
     {
@@ -41,10 +52,13 @@ const Administration = () => {
         <>
         <div>
         <EditModal/>
-        <div id='admin-page'>
+        <div id='admin-page' className="pb-3">
       
         <div id="type-selector"  >
-            <div className='grid col-2' style={{textAlign:"center"}}>
+            <div className='grid col-3' style={{textAlign:"center"}}>
+            <div style={{borderRight:"2px solid white"}}>
+                     <div onClick={allShows}>All</div>
+                </div>
                 <div style={{borderRight:"2px solid white"}}>
                      <div onClick={movieList}>Movies</div>
                 </div>

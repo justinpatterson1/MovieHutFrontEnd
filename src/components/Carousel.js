@@ -1,4 +1,4 @@
-import React,{useState,useContext} from "react";
+import React,{useContext} from "react";
 import Slider from "react-slick";
 import FlyerContext from "../Context/FlyerContext";
 import Slide from "../components/Slide";
@@ -32,7 +32,7 @@ const Carousel = ()=> {
                )) 
                   
             }        */
-            flyer.map(i=>(<Slide key={i.id} id={i.id} img={i.name}/>))
+            flyer.map(i=>(<Slide key={i._id} id={i._id} img={i.img}/>))
             }
             
          </Slider>

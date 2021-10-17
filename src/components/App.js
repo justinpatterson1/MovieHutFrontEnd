@@ -23,9 +23,7 @@ function App() {
   const [update,setUpdate] = useState(false);
   
   const [flyer,setFlyer] = useState([
-    {id:1,
-      name:1
-  }
+   
   ])
 
   const [movie,setMovie] = useState([{
@@ -51,6 +49,17 @@ function App() {
     trailer:"",
     img:""
 })
+
+useEffect(() => {
+  fetch(`http://localhost:4000/movie?promoted=true`)
+  .then(res=>res.json())
+  .then((json)=>{
+  
+      setFlyer(json.data)
+      console.log(json.data)
+  })
+  .catch(err=>console.log(err))
+}, [])
 
   useEffect(() => {
 
