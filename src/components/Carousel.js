@@ -1,5 +1,7 @@
-import React,{useState} from "react";
+import React,{useState,useContext} from "react";
 import Slider from "react-slick";
+import FlyerContext from "../Context/FlyerContext";
+import Slide from "../components/Slide";
 
 const Carousel = ()=> {
   var settings = {
@@ -13,15 +15,13 @@ const Carousel = ()=> {
   };
 
 
-  const [flyer,setFlyer] = useState(
-      {slides:[1,2,3,4,5,6]
-    })
+  const {flyer,setFlyer} = useContext(FlyerContext)
 
   return (
     <div style={{width:'70%',margin:'0 auto'}}>
 
         <Slider {...settings}>
-           {
+           {/* {
                flyer.slides.map(fly=>(
                    
                        <div>
@@ -31,7 +31,9 @@ const Carousel = ()=> {
                    
                )) 
                   
-            }       
+            }        */
+            flyer.map(i=>(<Slide key={i.id} id={i.id} img={i.name}/>))
+            }
             
          </Slider>
     </div>

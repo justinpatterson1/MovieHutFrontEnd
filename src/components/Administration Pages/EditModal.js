@@ -30,13 +30,15 @@ const EditModal = () => {
 
     const addNewMovie = (evt)=>{
        
-        evt.preventDefault();
+        
+        //evt.preventDefault();
 
-        let image= document.querySelector(".file-input") //formInput.img 
-
+        alert("Hey")
 
         const formData = new FormData()
 
+        let image= document.querySelector(".file-input") //formInput.img 
+ 
         formData.append("name",formInput.name)
         formData.append("rating",formInput.rating)
         formData.append("price",formInput.price)
@@ -47,6 +49,7 @@ const EditModal = () => {
         formData.append("trailer",formInput.trailer)
         formData.append("img",image.files[0])
 
+        console.log("whats wrong")
         console.log(formData)
         fetch('http://localhost:4000/movie',{
             method:'POST',
@@ -54,8 +57,10 @@ const EditModal = () => {
             //body: formData
         })
         .then(res => res.json())
-        .then(json=>{
+        .then((json)=>{
 
+            console.log("Blah blha")
+            console.log(json.data)
             setMovie([...movie,json.data])
 
             setFormInput({    
@@ -72,9 +77,14 @@ const EditModal = () => {
         
         alert("Movie added")
         history.push("/");
+
+        alert("Worrrrrrrrrrrk")
         })
-        .catch(err => `error is ${err}`)
+        .catch(err => console.log(`error is ${err}`))
     }
+
+
+
 
     const editItem = ()=>{
 
@@ -119,8 +129,10 @@ const EditModal = () => {
 
                             editItem()
                         }else{
-                            addNewMovie()
+                             addNewMovie()
                         }
+
+                       
                         
                        
                         

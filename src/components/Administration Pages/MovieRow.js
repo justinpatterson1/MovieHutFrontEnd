@@ -1,16 +1,19 @@
-import React,{useState,useContext} from 'react'
+import React,{useState,useContext,useEffect} from 'react'
 import {AiFillDelete} from 'react-icons/ai'
 import {HiPencil} from 'react-icons/hi'
 import MovieContext from '../../Context/MovieContext'
 import UpdateContext from '../../Context/UpdateContext'
 import EditFormContext from '../../Context/EditFormContext'
 import FormInputContext from '../../Context/FormInputContext'
+import FlyerContext from '../../Context/FlyerContext'
 
 const MovieRow = ({id,name,rating}) => {
     const {movie, setMovie} = useContext(MovieContext)
     const {update,setUpdate} = useContext(UpdateContext)
     const {editFormVisible,setEditFormVisible} = useContext(EditFormContext)
     const {formInput,setFormInput} = useContext(FormInputContext)
+    const {flyer,setFlyer} = useContext(FlyerContext)
+    const [promote,setPromote] = useState(false)
 
     const deleteItem = ()=>{
         fetch(`http://localhost:4000/movie/${id}`,{
@@ -32,6 +35,7 @@ const MovieRow = ({id,name,rating}) => {
     
     }
 
+    //need to find a way for image name to be updated as well
     const updateItem = ()=>{
 
       
@@ -70,6 +74,18 @@ const MovieRow = ({id,name,rating}) => {
 
     }
 
+    const check = ()=>{
+        setPromote(true)
+    }
+
+    useEffect(() => {
+        
+       if(promote){
+           alert('hey')
+       }
+
+    }, [])
+
     
     return (
         
@@ -79,6 +95,17 @@ const MovieRow = ({id,name,rating}) => {
             <td>{rating}</td>
             <td>
                 <input type="checkbox" name="featured" id="featured" />
+            </td>
+            <td>
+                <input type="checkbox" name="promote" id="promote" onClick={()=>{
+                   fetch(`http://localhost:4000/movie/${id}`)
+                   .then(res => res.json())
+                   .then((json)=>{
+                        
+                        setFlyer([...flyer,{id:json.data._id,name:json.data.img}])
+                   })             
+                    
+                    }} />
             </td>
             <td onClick={()=>{
                 updateItem()

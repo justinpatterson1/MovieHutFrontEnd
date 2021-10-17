@@ -15,7 +15,7 @@ const Administration = () => {
 
     const movieList = ()=>
     {
-        fetch(`http://localhost:4000/movie/Movie`)
+        fetch(`http://localhost:4000/movie?type=Movie`)
         .then(res=>res.json())
         .then((json)=>{
         
@@ -26,7 +26,7 @@ const Administration = () => {
     }
 
     const tvShowList = ()=>{
-        fetch(`http://localhost:4000/movie/Tv Show`)
+        fetch(`http://localhost:4000/movie?type=Tv Show`)
         .then(res=>res.json())
         .then((json)=>{
         
@@ -65,6 +65,7 @@ const Administration = () => {
                 <th>Name</th>
                 <th>Rating</th>
                 <th>Featured</th>
+                <th>Promote</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>

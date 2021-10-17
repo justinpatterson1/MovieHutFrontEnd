@@ -6,6 +6,8 @@ import AdminPage from '../pages/AdminPage';
 import EditFormContext from '../Context/EditFormContext';
 import UpdateContext from '../Context/UpdateContext';
 import FormInputContext from '../Context/FormInputContext';
+import FlyerContext from '../Context/FlyerContext'
+
 import { BrowserRouter as Router,
   Switch,
   Route,
@@ -19,6 +21,12 @@ function App() {
 
   const [editFormVisible,setEditFormVisible] = useState({visibility:false, id:0});
   const [update,setUpdate] = useState(false);
+  
+  const [flyer,setFlyer] = useState([
+    {id:1,
+      name:1
+  }
+  ])
 
   const [movie,setMovie] = useState([{
     name:"",
@@ -28,7 +36,8 @@ function App() {
     description:"",
     type:"movie",
     genre:"",
-    trailer:""
+    trailer:"",
+    img:""
   }]);
 
   const[formInput,setFormInput] = useState({    
@@ -65,6 +74,7 @@ function App() {
          <EditFormContext.Provider value={{editFormVisible,setEditFormVisible}}>
            <UpdateContext.Provider value={{update,setUpdate}}>
              <FormInputContext.Provider value={{formInput,setFormInput}}>
+               <FlyerContext.Provider value={{flyer,setFlyer}}>
           <Switch>
 
             <Route exact path="/">
@@ -87,6 +97,7 @@ function App() {
 
             </Switch>
 
+              </FlyerContext.Provider>
             </FormInputContext.Provider>
           </UpdateContext.Provider>
          </EditFormContext.Provider>
