@@ -4,6 +4,7 @@ import MovieContext from '../Context/MovieContext'
 import HomePage from '../pages/HomePage';
 import AdminPage from '../pages/AdminPage';
 import MoviesPage from '../pages/MoviePage';
+import SignUpPage from '../pages/SignUpPage';
 import MovieDescriptionPage from '../pages/MovieDescriptionPage';
 import TvShowPage from '../pages/TvShowPage';
 import EditFormContext from '../Context/EditFormContext';
@@ -19,6 +20,7 @@ import { BrowserRouter as Router,
   Route,
   Link
 } from 'react-router-dom'
+import SignUp from './Administration Pages/SignUp';
 
 
 
@@ -130,6 +132,12 @@ useEffect(() => {
             <Route exact path="/MovieDescriptionPage/:id">
 
                 <MovieDescriptionPage/>
+
+            </Route>
+
+            <Route exact path="/sign-up">
+
+                <SignUpPage/>
 
             </Route>
 

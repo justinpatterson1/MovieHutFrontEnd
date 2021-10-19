@@ -51,9 +51,9 @@ const NavBar = () => {
         }}>
             <FiSearch/>     
         </div>
-          <a class="button is-primary">
+          <Link to='/sign-up' class="button is-primary">
             <strong>Sign Up</strong>
-          </a>
+          </Link>
           <a class="button is-light">
             Log in
           </a>
