@@ -4,12 +4,14 @@ import MovieContext from '../Context/MovieContext'
 import HomePage from '../pages/HomePage';
 import AdminPage from '../pages/AdminPage';
 import MoviesPage from '../pages/MoviePage';
+import MovieDescriptionPage from '../pages/MovieDescriptionPage';
 import TvShowPage from '../pages/TvShowPage';
 import EditFormContext from '../Context/EditFormContext';
 import UpdateContext from '../Context/UpdateContext';
 import FormInputContext from '../Context/FormInputContext';
 import FlyerContext from '../Context/FlyerContext'
 import FeaturedFilmContext from '../Context/FeaturedFilmContext';
+
 
 
 import { BrowserRouter as Router,
@@ -122,6 +124,12 @@ useEffect(() => {
             <Route exact path="/admin">
 
               <AdminPage/>
+
+            </Route>
+
+            <Route exact path="/MovieDescriptionPage/:id">
+
+                <MovieDescriptionPage/>
 
             </Route>
 

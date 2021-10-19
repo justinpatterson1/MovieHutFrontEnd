@@ -1,12 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const TvShowList = ({img}) => {
+const TvShowList = ({img,id}) => {
     return (
         <div>
             <div>
-                <img src={img} onClick={()=>{
-                    alert("Hey")
-                }}/>
+            <Link to={`/MovieDescriptionPage/${id}`}><img src={img} /></Link>
             </div>
     </div>
     )

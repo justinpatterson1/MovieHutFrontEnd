@@ -1,12 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import MovieDescriptionPage from '../pages/MovieDescriptionPage'
 
-const MovieList = ({img}) => {
+const MovieList = ({img,id}) => {
     return (
         <div>
             <div>
-                <img src={img} onClick={()=>{
-                    alert("Hey")
-                }}/>
+                
+                    <Link to={`/MovieDescriptionPage/${id}`}><img src={img} /></Link>
+                
             </div>
         </div>
     )
