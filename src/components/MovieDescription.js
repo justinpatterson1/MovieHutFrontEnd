@@ -19,30 +19,45 @@ const MovieDescription = () => {
         .catch(err=>{console.log(`Error:${err}`)})
     }, [])
 
+    const imageStyle =
+    {
+        backgroundImage:`url(${description.poster})`,
+        backgroundPosition:`center center`,
+        backgroundSize:`cover`,
+        backgroundRepeat:`no-repeat`,
+        backgroundAttachment:`local`,
+    
+
+    }
+
     return (
-        <div>
-            <div className='grid col-2'>
+        <div id='description-page' className='container' style={imageStyle}>
+            <div style={{position:'relative'}}>
+            
+            <div className='grid col-2' style={{color:'white', alignItems:'center'}}>
+                
                 <div className='grid col-2'>
-                    <img src={description.img} alt="" srcset="" />
+                    <img src={description.img} style={{width:"225px",height:"350px"}} alt="" srcset="" />
                     <div>
                         <div>
-                            <h1>{description.name}</h1>
-                            <h1>{description.genre}|Other|year</h1>
-                            <p>Rating</p>
+                            <h1 className='is-size-3'>{description.name}</h1>
+                            <div>{description.genre}|Other|{description.release_date}</div>
+                            <p>Rating:{description.rating}/10</p>
                         </div>
-                    <div>
+                    <div className='mt-4 mb-4'>
                             <h2>
                                 {description.description}
                             </h2>
                         </div> 
-                        <div className='grid col-2'>
-                            <div className='p-2 has-background-primary'>Rent</div>
-                            <div className='p-2 has-background-primary'>Buy</div>
+                        <div className='grid col-2' style={{columnGap:'20px'}}>
+                            <div className='p-2 has-background-primary button'>Rent</div>
+                            <div className='p-2 has-background-primary button'>Buy</div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+            <div className='iq'></div>
+            </div>
         </div>
     )
 }

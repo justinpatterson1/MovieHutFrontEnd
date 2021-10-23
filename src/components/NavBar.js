@@ -54,9 +54,9 @@ const NavBar = () => {
           <Link to='/sign-up' class="button is-primary">
             <strong>Sign Up</strong>
           </Link>
-          <a class="button is-light">
+          <Link to='/auth' class="button is-light">
             Log in
-          </a>
+          </Link>
         </div>
       </div>
     </div>

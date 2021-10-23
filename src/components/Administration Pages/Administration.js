@@ -85,7 +85,7 @@ const Administration = () => {
             </tr>
            {
                 
-                movie.map(content=>(<MovieRow id={content._id} key={content._id} name={content.name} rating={content.rating} />))
+                movie.map(content=>(<MovieRow id={content._id} key={content._id} name={content.name} rating={content.rating} img={content.img} />))
                 }
            
         </table>

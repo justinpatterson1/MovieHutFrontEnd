@@ -22,23 +22,43 @@ const SignUp = () => {
         })
         .catch(err=>{console.log(`Error:${err}`)})
         
+        setUser({
+            name:"",
+            address:"",
+            email:"",
+            password:""
+        })
         console.log(user)
     }
     return (
         <div className='grid col-1' style={{alignItems:'center' , height:'100vh'}}>
             <div className='' style={{width:'30%',margin:'0 auto'}}>
-            <h1 style={{textAlign:'center',color:"white", fontSize:'2rem'}}>Sign Up</h1>
+            <h1 className='mb-3' style={{textAlign:'center',color:"white", fontSize:'2rem'}}>Sign Up</h1>
                 <form onSubmit={(evt)=>{addNewUser(evt)}}>
                 <div>
-                        <div class="field">
-                            <label class="label has-text-white">Name</label>
-                            <div class="control">
-                                <input class="input" type="text" value={user.name} placeholder="e.g Alex Smith" onChange={(evt)=>{
-                                    setUser({
-                                        ...user,
-                                         name:evt.target.value
-                                    })
-                                }}/>
+                    <div className='grid col-2' style={{columnGap:'10px'}}>
+                            <div class="field">
+                                <label class="label has-text-white">First Name</label>
+                                <div class="control">
+                                    <input class="input" type="text" value={user.firstName} placeholder="e.g Alex" onChange={(evt)=>{
+                                        setUser({
+                                            ...user,
+                                            firstName:evt.target.value
+                                        })
+                                    }}/>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label has-text-white">Last Name</label>
+                                <div class="control">
+                                    <input class="input" type="text" value={user.lastName} placeholder="e.g Smith" onChange={(evt)=>{
+                                        setUser({
+                                            ...user,
+                                            lastName:evt.target.value
+                                        })
+                                    }}/>
+                                </div>
                             </div>
                         </div>
 

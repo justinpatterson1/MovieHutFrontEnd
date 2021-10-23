@@ -4,7 +4,7 @@ import Movies from '../components/Movies'
 
 const MoviePage = () => {
     return (
-        <div>
+        <div style={{height:'100%'}}>
            < NavBar/>
            < Movies />
         </div>

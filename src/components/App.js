@@ -5,6 +5,7 @@ import HomePage from '../pages/HomePage';
 import AdminPage from '../pages/AdminPage';
 import MoviesPage from '../pages/MoviePage';
 import SignUpPage from '../pages/SignUpPage';
+import LoginPage from '../pages/LoginPage';
 import MovieDescriptionPage from '../pages/MovieDescriptionPage';
 import TvShowPage from '../pages/TvShowPage';
 import EditFormContext from '../Context/EditFormContext';
@@ -141,6 +142,11 @@ useEffect(() => {
 
             </Route>
 
+            <Route exact path="/auth">
+
+                 <LoginPage/>
+
+            </Route>
             
 
             </Switch>

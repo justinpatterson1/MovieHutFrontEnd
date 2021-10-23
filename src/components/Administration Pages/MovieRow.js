@@ -7,7 +7,7 @@ import EditFormContext from '../../Context/EditFormContext'
 import FormInputContext from '../../Context/FormInputContext'
 import FlyerContext from '../../Context/FlyerContext'
 
-const MovieRow = ({id,name,rating}) => {
+const MovieRow = ({id,name,rating,img}) => {
     const {movie, setMovie} = useContext(MovieContext)
     const {update,setUpdate} = useContext(UpdateContext)
     const {editFormVisible,setEditFormVisible} = useContext(EditFormContext)
@@ -125,7 +125,9 @@ const MovieRow = ({id,name,rating}) => {
     return (
         
         <tr>
-            <td></td>
+            <td>
+                <img style={{height:'100px',width:'100px'}} src={img}/>
+            </td>
             <td>{name}</td>
             <td>{rating}</td>
             <td>
