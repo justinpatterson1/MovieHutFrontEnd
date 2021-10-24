@@ -46,6 +46,11 @@ body{
   grid-template-columns:1fr 20px 1fr;
 }
 
+.homeScreenPagination
+{
+  grid-template-columns:20px  1fr 20px;
+}
+
 
 .hide{
   display: none;
@@ -138,9 +143,12 @@ body{
 #nav{
   margin-bottom:0;
 }
-
-#featured-film > div > div> p:nth-child(2){
+#featured-film {
+  background-color:#081c2c ;
+}
+#featured-film >div > div > div> p:nth-child(2){
   justify-self: end;
+  margin-right: 40px;
 }
 
 .leftBtn:hover,

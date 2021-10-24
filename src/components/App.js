@@ -13,6 +13,7 @@ import UpdateContext from '../Context/UpdateContext';
 import FormInputContext from '../Context/FormInputContext';
 import FlyerContext from '../Context/FlyerContext'
 import FeaturedFilmContext from '../Context/FeaturedFilmContext';
+import FeaturedTvShowContext from '../Context/FeaturedTvShowContext'
 
 
 
@@ -28,8 +29,15 @@ import SignUp from './Administration Pages/SignUp';
 
 function App() {
 
+
+  const [isLoggedIn, setIsLoggedIn] =useState({
+
+    status:false,
+    user:{}
+  })
   const [editFormVisible,setEditFormVisible] = useState({visibility:false, id:0});
   const [featuredFilms,setFeaturedFilms] = useState([])
+  const [FeaturedTvShows,setFeaturedTvShows] = useState([])
   const [update,setUpdate] = useState(false);
   
   const [flyer,setFlyer] = useState([
@@ -86,13 +94,22 @@ useEffect(() => {
   
 
     useEffect(() => {
-       fetch(`http://localhost:4000/movie?featured=true`)
+       fetch(`http://localhost:4000/movie?type=Movie&featured=true&slideAmt=1`)
        .then(res=>res.json())
        .then((json)=>{
            setFeaturedFilms(json.data)
            console.log(json.data)
        })
     }, [])
+
+    useEffect(() => {
+      fetch(`http://localhost:4000/movie?type=Tv Show&featured=true&slideAmt=1`)
+      .then(res=>res.json())
+      .then((json)=>{
+          setFeaturedTvShows(json.data)
+          console.log(json.data)
+      })
+   }, [])
 
   return (
     <div >
@@ -106,6 +123,7 @@ useEffect(() => {
              <FormInputContext.Provider value={{formInput,setFormInput}}>
                <FlyerContext.Provider value={{flyer,setFlyer}}>
                  <FeaturedFilmContext.Provider value={{featuredFilms,setFeaturedFilms}}>
+                   <FeaturedTvShowContext.Provider value={{FeaturedTvShows,setFeaturedTvShows}}>
           <Switch>
 
             <Route exact path="/">
@@ -150,7 +168,7 @@ useEffect(() => {
             
 
             </Switch>
-
+                  </FeaturedTvShowContext.Provider>
                 </FeaturedFilmContext.Provider>
               </FlyerContext.Provider>
             </FormInputContext.Provider>

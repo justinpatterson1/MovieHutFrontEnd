@@ -5,7 +5,7 @@ const FeaturedFilmList = ({id,img,name,rating,trailer}) => {
         <div >
             <div>
                 <div>
-                    <img src={img} alt="" />
+                    <img src={img} alt="" style={{height:'300px'}} />
                 </div>
                
             </div>

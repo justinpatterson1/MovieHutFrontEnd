@@ -75,7 +75,7 @@ const Administration = () => {
         </p>
         <table id='content-table' className=''>
             <tr>
-                <th>ID</th>
+                <th>Poster</th>
                 <th>Name</th>
                 <th>Rating</th>
                 <th>Featured</th>

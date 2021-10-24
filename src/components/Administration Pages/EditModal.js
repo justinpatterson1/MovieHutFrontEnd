@@ -122,6 +122,7 @@ const EditModal = () => {
                 <div className='grid col-1 mt-6 '>
                     <div className='grid col-1' style={{justifyItems:'right',marginTop:'20px',marginRight:'20px',fontSize:'2rem'}} onClick={()=>{
                         setEditFormVisible({visibility:false,id:0})
+                        setUpdate(false)
                     }}>
                         <ImCancelCircle/>
                     </div>

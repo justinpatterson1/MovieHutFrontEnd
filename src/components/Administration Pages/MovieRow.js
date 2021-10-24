@@ -6,6 +6,7 @@ import UpdateContext from '../../Context/UpdateContext'
 import EditFormContext from '../../Context/EditFormContext'
 import FormInputContext from '../../Context/FormInputContext'
 import FlyerContext from '../../Context/FlyerContext'
+import FeaturedFilmContext from '../../Context/FeaturedFilmContext'
 
 const MovieRow = ({id,name,rating,img}) => {
     const {movie, setMovie} = useContext(MovieContext)
@@ -13,24 +14,29 @@ const MovieRow = ({id,name,rating,img}) => {
     const {editFormVisible,setEditFormVisible} = useContext(EditFormContext)
     const {formInput,setFormInput} = useContext(FormInputContext)
     const {flyer,setFlyer} = useContext(FlyerContext)
+    const {featuredFilms,setFeaturedFilms} = useContext(FeaturedFilmContext)
     const [promote,setPromote] = useState(false)
 
-    const deleteItem = ()=>{
-        fetch(`http://localhost:4000/movie/${id}`,{
-        method:'DELETE',
-        headers: {
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          }
-        })
+    const deleteItem = (evt)=>{
+
+    
+       evt.preventDefault()
 
          const allMovies = [...movie];
-         const deletedMovie = allMovies.findIndex(m => m._id === id)
+         const deletedMovie = allMovies.find(m => m._id === id)
 
-          allMovies.splice(deletedMovie,1)
-
-        
-        setMovie(allMovies)
+         console.log(deletedMovie)
+         if(window.confirm(`Are you sure you want to delete ${deletedMovie.name}`)){
+            fetch(`http://localhost:4000/movie/${id}`,{
+                method:'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                  }
+                })
+            allMovies.splice(deletedMovie,1)
+            setMovie(allMovies)
+         }
 
     
     }
@@ -96,7 +102,7 @@ const MovieRow = ({id,name,rating,img}) => {
         .then(res=>res.json())
         .then((json)=>{
         
-            setFlyer([...flyer,{id:movieToBeUpdated._id,name:movieToBeUpdated.img}])
+            setFlyer([...flyer,{id:movieToBeUpdated._id,name:movieToBeUpdated.poster}])
             console.log(json.data)
         })
         .catch(err=>console.log(err))
@@ -113,13 +119,33 @@ const MovieRow = ({id,name,rating,img}) => {
         setPromote(true)
     }
 
-    useEffect(() => {
-        
-       if(promote){
-           alert('hey')
-       }
+    const addFeaturedMovie = ()=>{
+        let featuredMovie = [...movie];
 
-    }, [])
+        featuredMovie = featuredMovie.find((m)=>{return m._id === id})
+
+        featuredMovie.featured = true;
+
+        fetch(`http://localhost:4000/movie/${id}`,{
+            method:'PUT',
+            headers:{'content-type':'application/json'},
+            body:JSON.stringify(featuredMovie)
+        })
+        .then(res=>res.json())
+        .then((json)=>{
+
+            setFeaturedFilms([...featuredFilms,featuredMovie])
+        })
+        .catch(err=>console.log(err))
+    }
+
+    // useEffect(() => {
+        
+    //    if(promote){
+    //        alert('hey')
+    //    }
+
+    // }, [])
 
     
     return (
@@ -131,7 +157,9 @@ const MovieRow = ({id,name,rating,img}) => {
             <td>{name}</td>
             <td>{rating}</td>
             <td>
-                <input type="checkbox" name="featured" id="featured" />
+                <input type="checkbox" name="featured" id="featured"onClick={()=>{
+                    addFeaturedMovie()
+                }} />
             </td>
             <td>
                 <input type="checkbox" name="promote" id="promote" onClick={()=>{
@@ -142,7 +170,7 @@ const MovieRow = ({id,name,rating,img}) => {
             <td onClick={()=>{
                 updateItem()
             }}><HiPencil/></td>
-            <td onClick={deleteItem}><AiFillDelete /></td>
+            <td onClick={(evt)=>{deleteItem(evt)}}><AiFillDelete /></td>
         </tr>  
     )
 
