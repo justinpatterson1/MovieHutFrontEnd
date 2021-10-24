@@ -27,7 +27,7 @@ const Movies = () => {
         evt.preventDefault()
 
         let i = page+ 1;
-        setPage(i)
+        
         console.log(page)
         
         fetch(`http://localhost:4000/movie?type=Movie&page=${i}`)
@@ -35,6 +35,7 @@ const Movies = () => {
         .then((json)=>{
             if(json.data.length !=0){
                 setMoviePageList(json.data)
+                setPage(i)
             }
            
         
@@ -48,13 +49,14 @@ const Movies = () => {
 
         let i = page -1
     
-        setPage(i)
+       
         console.log(page)
         if(page > 1){
         fetch(`http://localhost:4000/movie?type=Movie&page=${i}`)
         .then(res=>res.json())
         .then((json)=>{
             setMoviePageList(json.data)
+            setPage(i)
             console.log(json.data)
             
         })

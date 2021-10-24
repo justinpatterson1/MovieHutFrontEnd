@@ -28,7 +28,7 @@ const TvShows = () => {
         evt.preventDefault()
 
         let i = page+ 1;
-        setPage(i)
+        
         console.log(page)
         
         fetch(`http://localhost:4000/movie?type=Tv Show&page=${i}`)
@@ -36,6 +36,7 @@ const TvShows = () => {
         .then((json)=>{
             if(json.data.length !=0){
                 setTvShowPageList(json.data)
+                setPage(i)
             }
            
         
@@ -49,7 +50,7 @@ const TvShows = () => {
 
         let i = page -1
     
-        setPage(i)
+        
         console.log(page)
         if(page > 1){
         fetch(`http://localhost:4000/movie?type=Tv Show&page=${i}`)
@@ -57,6 +58,7 @@ const TvShows = () => {
         .then((json)=>{
             setTvShowPageList(json.data)
             console.log(json.data)
+            setPage(i)
             
         })
     }
