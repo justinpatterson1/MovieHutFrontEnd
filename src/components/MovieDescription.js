@@ -8,6 +8,8 @@ const MovieDescription = () => {
 
     const {id} = useParams();
 
+    const history = useHistory();
+
     useEffect(() => {
         
         fetch(`http://localhost:4000/movie/${id}`)
@@ -51,7 +53,10 @@ const MovieDescription = () => {
                         </div> 
                         <div className='grid col-2' style={{columnGap:'20px'}}>
                             <div className='p-2 has-background-primary button'>Rent</div>
-                            <div className='p-2 has-background-primary button'>Buy</div>
+                            <div className='p-2 has-background-primary button' onClick={()=>{
+                                
+                                history.push("/cart/")
+                            }}>Buy ${description.price}</div>
                         </div>
                     </div>
                 </div>

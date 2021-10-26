@@ -1,11 +1,15 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import { FiSearch } from 'react-icons/fi';
+import {AiOutlineShoppingCart} from 'react-icons/ai'
 import { Link } from 'react-router-dom';
 import movieHutLogo from '../assets/images/MovieHutLogo.png'
 import Search from '../components/Search';
+import TokenContext from '../Context/TokenContext'
 const NavBar = () => {
 
+  const {token,setToken} = useContext(TokenContext)
   const [ searchBarVisibility, setSearchBarVisibility] = useState(false)
+  
     return (
         <div id='nav'>
             <nav className="navbar mb-0" role="navigation" aria-label="main navigation">
@@ -51,12 +55,25 @@ const NavBar = () => {
         }}>
             <FiSearch/>     
         </div>
+        
+        {token
+            ?
+          
+          <Link to={`/cart/${token.id}`} class="button is-primary">
+               <AiOutlineShoppingCart/>
+          </Link>
+          :
+          <>
           <Link to='/sign-up' class="button is-primary">
             <strong>Sign Up</strong>
           </Link>
           <Link to='/auth' class="button is-light">
             Log in
           </Link>
+          </>
+
+          
+          }
         </div>
       </div>
     </div>

@@ -152,7 +152,7 @@ useEffect(() => {
         console.log(json.data)
     })
     .catch(err=>console.log(err))
-    alert(adminView)
+    
 
 }, [])
     return (

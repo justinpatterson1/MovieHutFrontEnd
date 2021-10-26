@@ -6,6 +6,7 @@ import AdminPage from '../pages/AdminPage';
 import MoviesPage from '../pages/MoviePage';
 import SignUpPage from '../pages/SignUpPage';
 import LoginPage from '../pages/LoginPage';
+import CartPage from '../pages/CartPage';
 import MovieDescriptionPage from '../pages/MovieDescriptionPage';
 import TvShowPage from '../pages/TvShowPage';
 import EditFormContext from '../Context/EditFormContext';
@@ -13,7 +14,8 @@ import UpdateContext from '../Context/UpdateContext';
 import FormInputContext from '../Context/FormInputContext';
 import FlyerContext from '../Context/FlyerContext'
 import FeaturedFilmContext from '../Context/FeaturedFilmContext';
-import FeaturedTvShowContext from '../Context/FeaturedTvShowContext'
+import FeaturedTvShowContext from '../Context/FeaturedTvShowContext';
+import TokenContext from '../Context/TokenContext'
 
 
 
@@ -39,6 +41,7 @@ function App() {
   const [featuredFilms,setFeaturedFilms] = useState([])
   const [FeaturedTvShows,setFeaturedTvShows] = useState([])
   const [update,setUpdate] = useState(false);
+  const [token,setToken] = useState({})
   
   const [flyer,setFlyer] = useState([
    
@@ -68,6 +71,12 @@ function App() {
     img:""
 })
 
+
+useEffect(() => {
+  setToken(localStorage.getItem('token'))
+  
+  
+}, [])
 useEffect(() => {
   fetch(`http://localhost:4000/movie?promoted=true`)
   .then(res=>res.json())
@@ -77,6 +86,7 @@ useEffect(() => {
       console.log(json.data)
   })
   .catch(err=>console.log(err))
+  
 }, [])
 
   useEffect(() => {
@@ -109,6 +119,9 @@ useEffect(() => {
           setFeaturedTvShows(json.data)
           console.log(json.data)
       })
+
+      alert(token)
+      console.log(token)
    }, [])
 
   return (
@@ -124,6 +137,7 @@ useEffect(() => {
                <FlyerContext.Provider value={{flyer,setFlyer}}>
                  <FeaturedFilmContext.Provider value={{featuredFilms,setFeaturedFilms}}>
                    <FeaturedTvShowContext.Provider value={{FeaturedTvShows,setFeaturedTvShows}}>
+                     <TokenContext.Provider value={{token,setToken}}>
           <Switch>
 
             <Route exact path="/">
@@ -165,9 +179,14 @@ useEffect(() => {
                  <LoginPage/>
 
             </Route>
-            
+            <Route exact path="/cart/:id">
+
+              <CartPage/>
+
+            </Route>  
 
             </Switch>
+                    </TokenContext.Provider>
                   </FeaturedTvShowContext.Provider>
                 </FeaturedFilmContext.Provider>
               </FlyerContext.Provider>

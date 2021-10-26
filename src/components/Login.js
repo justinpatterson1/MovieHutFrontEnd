@@ -1,7 +1,11 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
+import TokenContext from '../Context/TokenContext'
+import { useHistory } from 'react-router'
 
 const Login = () => {
 
+    const history = useHistory()
+    const {token,setToken} = useContext(TokenContext)
     const  [login,setLogin] = useState({
         email:"",
         password:""
@@ -17,12 +21,28 @@ const Login = () => {
             },
             body:JSON.stringify(login)
         })
+        .then(res=>res.json())
+        .then((json)=>{
+            localStorage.setItem('token',JSON.stringify(json.data))
+            
+            console.log(json.user)
+            
+            
+        })
     }
     return (
         <div className='grid col-1' style={{alignItems:'center' , height:'100vh'}}>
             <div className='' style={{width:'30%',margin:'0 auto'}}>
             <h1 className='mb-3' style={{textAlign:'center',color:"white", fontSize:'2rem'}}>Login</h1>
-                <form>
+                <form onSubmit={(evt)=>{
+                    loginUser(evt)
+                    setLogin({
+                        email:"",
+                        password:""
+                    })
+
+                    history.push("/")
+                }}>
                 <div>
                     
                             <div class="field">

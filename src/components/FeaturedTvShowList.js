@@ -1,12 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import MovieDescriptionPage from '../pages/MovieDescriptionPage'
 
-const FeaturedTvShowList = ({img}) => {
+const FeaturedTvShowList = ({img,id}) => {
     return (
         <div>
              
                 <div>
                     <div>
-                        <img src={img} alt="" style={{height:'300px'}} />
+                        <Link to={`/MovieDescriptionPage/${id}`}> <img src={img} alt="" style={{height:'300px'}} /></Link>
                     </div>
                 
                 </div>
