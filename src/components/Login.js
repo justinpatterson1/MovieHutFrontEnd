@@ -1,11 +1,14 @@
 import React,{useState,useContext} from 'react'
 import TokenContext from '../Context/TokenContext'
+import LoginContext from '../Context/LoginContext'
 import { useHistory } from 'react-router'
+import jwtDecode  from "jwt-decode";
 
 const Login = () => {
 
     const history = useHistory()
     const {token,setToken} = useContext(TokenContext)
+    const {isLoggedIn, setIsLoggedIn} = useContext(LoginContext)
     const  [login,setLogin] = useState({
         email:"",
         password:""
@@ -23,8 +26,23 @@ const Login = () => {
         })
         .then(res=>res.json())
         .then((json)=>{
-            localStorage.setItem('token',JSON.stringify(json.data))
-            
+
+            //This is when the user have been authenticated
+            //store token sent back from the server
+            localStorage.setItem('token',json.token);
+
+            //decode token
+
+            const currentLoggedInUser = jwtDecode(json.token);
+            console.log("Blah blah")
+            console.log(currentLoggedInUser)
+            //update my state loggedIn to reflect that a user was logged in
+            setIsLoggedIn({status:true,user:currentLoggedInUser})
+
+
+            //redirect 
+
+            history.push("/admin")
             console.log(json.user)
             
             
@@ -41,7 +59,7 @@ const Login = () => {
                         password:""
                     })
 
-                    history.push("/")
+
                 }}>
                 <div>
                     

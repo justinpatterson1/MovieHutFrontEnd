@@ -16,6 +16,10 @@ import FlyerContext from '../Context/FlyerContext'
 import FeaturedFilmContext from '../Context/FeaturedFilmContext';
 import FeaturedTvShowContext from '../Context/FeaturedTvShowContext';
 import TokenContext from '../Context/TokenContext'
+import LoginContext from '../Context/LoginContext';
+
+
+import jwtDecode from 'jwt-decode';
 
 
 
@@ -37,6 +41,34 @@ function App() {
     status:false,
     user:{}
   })
+
+  useEffect(()=>{
+
+
+    if( localStorage.getItem('token'))
+    {
+      try
+      {
+        const token = localStorage.getItem("token");
+        const currentLoggedInUser = jwtDecode(token);
+      
+        //update my state loggedIn to reflect that a user was logged in
+        setIsLoggedIn({status:true,user:currentLoggedInUser})
+
+        
+      }
+      catch(err){}
+
+
+    }
+
+
+
+
+  },[])
+
+
+
   const [editFormVisible,setEditFormVisible] = useState({visibility:false, id:0});
   const [featuredFilms,setFeaturedFilms] = useState([])
   const [FeaturedTvShows,setFeaturedTvShows] = useState([])
@@ -138,6 +170,7 @@ useEffect(() => {
                  <FeaturedFilmContext.Provider value={{featuredFilms,setFeaturedFilms}}>
                    <FeaturedTvShowContext.Provider value={{FeaturedTvShows,setFeaturedTvShows}}>
                      <TokenContext.Provider value={{token,setToken}}>
+                        <LoginContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
           <Switch>
 
             <Route exact path="/">
@@ -186,6 +219,7 @@ useEffect(() => {
             </Route>  
 
             </Switch>
+                      </LoginContext.Provider>
                     </TokenContext.Provider>
                   </FeaturedTvShowContext.Provider>
                 </FeaturedFilmContext.Provider>

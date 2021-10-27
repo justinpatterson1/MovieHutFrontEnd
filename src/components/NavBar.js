@@ -1,14 +1,38 @@
 import React,{useState,useContext} from 'react'
 import { FiSearch } from 'react-icons/fi';
 import {AiOutlineShoppingCart} from 'react-icons/ai'
+import {AiFillCaretDown} from 'react-icons/ai'
 import { Link } from 'react-router-dom';
 import movieHutLogo from '../assets/images/MovieHutLogo.png'
 import Search from '../components/Search';
 import TokenContext from '../Context/TokenContext'
+import LoginContext from '../Context/LoginContext'
+import {useHistory} from "react-router-dom"
+
+
 const NavBar = () => {
 
   const {token,setToken} = useContext(TokenContext)
-  const [ searchBarVisibility, setSearchBarVisibility] = useState(false)
+  const {isLoggedIn, setIsLoggedIn} = useContext(LoginContext)
+  const [ searchBarVisibility, setSearchBarVisibility] = useState(false);
+
+
+  const redirect = useHistory();
+
+  const onLogout = ()=>
+  {
+
+      if(localStorage.getItem("token"))
+      {
+          localStorage.removeItem("token");
+          alert("You have been logged out. Good bye!");
+          
+          setIsLoggedIn({user:null, status:false});
+          redirect.push("/");
+      }
+
+
+  }
   
     return (
         <div id='nav'>
@@ -56,12 +80,19 @@ const NavBar = () => {
             <FiSearch/>     
         </div>
         
-        {token
+        {isLoggedIn.status
             ?
-          
-          <Link to={`/cart/${token.id}`} class="button is-primary">
+        
+          <>
+          <Link to={`/cart/${isLoggedIn.user._id}`} class="button is-primary">
                <AiOutlineShoppingCart/>
           </Link>
+          <div className='mr-5 has-dropdown'><AiFillCaretDown/>
+             <Link>Profile</Link>
+            <Link onClick={onLogout}>Log Out </Link>
+          </div>
+          
+          </>
           :
           <>
           <Link to='/sign-up' class="button is-primary">
@@ -80,8 +111,11 @@ const NavBar = () => {
   </div>
 </nav>
 <Search setSearchBarVisibility={setSearchBarVisibility} searchBarVisibility={searchBarVisibility} />
-        </div>
+
+ </div>
+
     )
+
 }
 
 export default NavBar
