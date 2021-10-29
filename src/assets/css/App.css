@@ -56,6 +56,10 @@ body{
   grid-template-columns:20px  1fr 20px;
 }
 
+.cartlayout
+{
+  grid-template-columns:1fr 300px;
+}
 
 .hide{
   display: none;
@@ -176,7 +180,7 @@ body{
 }
 
 #cart-list{
-  background-color: #2596be;
+  background-color: white;
 }
 
 #cart-list > div{

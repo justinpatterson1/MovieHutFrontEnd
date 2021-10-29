@@ -64,7 +64,8 @@ const MovieDescription = () => {
             name:description.name,
             img:description.img,
             cost:description.price,
-            order:"Buy"
+            order:"Buy",
+            quantity:0
 
         }
 
