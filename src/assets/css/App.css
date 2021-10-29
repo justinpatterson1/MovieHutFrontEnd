@@ -41,6 +41,11 @@ body{
   grid-template-columns: repeat(6,1fr);
 }
 
+.col-7
+{
+  grid-template-columns: repeat(7,1fr);
+}
+
 .pageNum
 {
   grid-template-columns:1fr 20px 1fr;
@@ -168,4 +173,12 @@ body{
   height: 100%;
   background-color: red;
   
+}
+
+#cart-list{
+  background-color: #2596be;
+}
+
+#cart-list > div{
+  box-shadow: 5px 10px rgba(0, 0, 0, 0.212);
 }

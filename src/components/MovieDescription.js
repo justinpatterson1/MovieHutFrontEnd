@@ -1,10 +1,15 @@
 import React, { useContext, useEffect,useState } from 'react'
 import { useParams, useHistory } from 'react-router'
 import MovieContext from '../Context/MovieContext'
+import LoginContext from '../Context/LoginContext'
+
 
 const MovieDescription = () => {
 
     const [description,setDescription] = useState({})
+    const [user,setUser] = useState({})
+    const {isLoggedIn} = useContext(LoginContext)
+
 
     const {id} = useParams();
 
@@ -21,6 +26,19 @@ const MovieDescription = () => {
         .catch(err=>{console.log(`Error:${err}`)})
     }, [])
 
+    useEffect(() => {
+        
+        fetch(`http://localhost:4000/users/${isLoggedIn.user._id}`)
+        .then(res=>res.json())
+        .then((json)=>{
+             setUser( json.data )
+             
+             
+        })
+        .catch(err=>{console.log(`Error:${err}`)})
+    }, [])
+
+
     const imageStyle =
     {
         backgroundImage:`url(${description.poster})`,
@@ -30,6 +48,36 @@ const MovieDescription = () => {
         backgroundAttachment:`local`,
     
 
+    }
+
+  
+
+   const  addToCart = ()=>{
+
+   
+        
+
+        
+         const item = 
+        {
+            _id:description._id,
+            name:description.name,
+            img:description.img,
+            cost:description.price,
+            order:"Buy"
+
+        }
+
+
+        user.cart.splice(1,0,item)
+        console.log(user)
+        fetch(`http://localhost:4000/users/${isLoggedIn.user._id}`,{
+            method:'PUT',
+            headers:{'Content-Type': 'application/json'},
+            body:JSON.stringify(user)
+        })
+   
+        
     }
 
     return (
@@ -54,8 +102,9 @@ const MovieDescription = () => {
                         <div className='grid col-2' style={{columnGap:'20px'}}>
                             <div className='p-2 has-background-primary button'>Rent</div>
                             <div className='p-2 has-background-primary button' onClick={()=>{
-                                
-                                history.push("/cart/")
+                            
+                                addToCart()
+                                history.push(`/cart/${isLoggedIn.user._id}`)
                             }}>Buy ${description.price}</div>
                         </div>
                     </div>
