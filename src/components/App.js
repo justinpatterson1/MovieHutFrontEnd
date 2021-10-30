@@ -1,12 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import '../assets/css/App.css';
-import MovieContext from '../Context/MovieContext'
+import MovieContext from '../Context/MovieContext';
+import ProtectedRoute from "../components/ProtectedRoute"
 import HomePage from '../pages/HomePage';
 import AdminPage from '../pages/AdminPage';
 import MoviesPage from '../pages/MoviePage';
 import SignUpPage from '../pages/SignUpPage';
 import LoginPage from '../pages/LoginPage';
 import CartPage from '../pages/CartPage';
+import SearchPage from '../pages/SearchPage';
 import MovieDescriptionPage from '../pages/MovieDescriptionPage';
 import TvShowPage from '../pages/TvShowPage';
 import EditFormContext from '../Context/EditFormContext';
@@ -17,6 +19,8 @@ import FeaturedFilmContext from '../Context/FeaturedFilmContext';
 import FeaturedTvShowContext from '../Context/FeaturedTvShowContext';
 import TokenContext from '../Context/TokenContext'
 import LoginContext from '../Context/LoginContext';
+import SearchContext from '../Context/SearchContext';
+import NewReleasesContext from '../Context/NewReleasesContext';
 
 
 import jwtDecode from 'jwt-decode';
@@ -72,9 +76,11 @@ function App() {
   const [editFormVisible,setEditFormVisible] = useState({visibility:false, id:0});
   const [featuredFilms,setFeaturedFilms] = useState([])
   const [FeaturedTvShows,setFeaturedTvShows] = useState([])
+  const [NewReleases,setNewReleases] = useState([])
+  const [NewTvReleases,setNewTvReleases] = useState([])
   const [update,setUpdate] = useState(false);
   const [token,setToken] = useState({})
-  
+  const [ searchBarVisibility, setSearchBarVisibility] = useState(false);
   const [flyer,setFlyer] = useState([
    
   ])
@@ -104,11 +110,6 @@ function App() {
 })
 
 
-useEffect(() => {
-  setToken(localStorage.getItem('token'))
-  
-  
-}, [])
 useEffect(() => {
   fetch(`http://localhost:4000/movie?promoted=true`)
   .then(res=>res.json())
@@ -156,6 +157,30 @@ useEffect(() => {
       console.log(token)
    }, [])
 
+   useEffect(() => {
+    fetch(`http://localhost:4000/movie?type=Movie&sort=-1&slideAmt=1`)
+    .then(res=>res.json())
+    .then((json)=>{
+      setNewReleases(json.data)
+        console.log(json.data)
+    })
+
+    alert(token)
+    console.log(token)
+ }, [])
+
+ useEffect(() => {
+  fetch(`http://localhost:4000/movie?type=Tv Show&sort=-1&slideAmt=1`)
+  .then(res=>res.json())
+  .then((json)=>{
+    setNewTvReleases(json.data)
+      console.log(json.data)
+  })
+
+  alert(token)
+  console.log(token)
+}, [])
+
   return (
     <div >
        
@@ -171,6 +196,8 @@ useEffect(() => {
                    <FeaturedTvShowContext.Provider value={{FeaturedTvShows,setFeaturedTvShows}}>
                      <TokenContext.Provider value={{token,setToken}}>
                         <LoginContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
+                          <SearchContext.Provider value={{searchBarVisibility, setSearchBarVisibility}}>
+                            <NewReleasesContext.Provider value={{NewReleases,setNewReleases,NewTvReleases,setNewTvReleases}}>
           <Switch>
 
             <Route exact path="/">
@@ -189,11 +216,7 @@ useEffect(() => {
               <TvShowPage/>
 
             </Route>
-            <Route exact path="/admin">
 
-              <AdminPage/>
-
-            </Route>
 
             <Route exact path="/MovieDescriptionPage/:id">
 
@@ -212,13 +235,22 @@ useEffect(() => {
                  <LoginPage/>
 
             </Route>
-            <Route exact path="/cart/:id">
+            
 
-              <CartPage/>
 
-            </Route>  
+            <ProtectedRoute  path="/user" role="User" component={( <h1>Welcome</h1>)}/>
+
+        
+            <ProtectedRoute  path="/admin" role="Admin" component={<AdminPage/>}/>
+
+  
+            <ProtectedRoute  path="/cart/:id" role="User" component={CartPage}/>
+
+   
 
             </Switch>
+                          </NewReleasesContext.Provider>
+                        </SearchContext.Provider>
                       </LoginContext.Provider>
                     </TokenContext.Provider>
                   </FeaturedTvShowContext.Provider>

@@ -4,6 +4,9 @@ import Carousel from '../components/Carousel'
 import Search from '../components/Search'
 import FeaturedFilms from '../components/FeaturedFilms'
 import FeaturedTvShow from '../components/FeaturedTvShow'
+import Footer from '../components/Footer'
+import NewReleases from '../components/NewReleases'
+import NewTvReleases from '../components/NewTvReleases'
 
 const HomePage = () => {
     return (
@@ -12,6 +15,9 @@ const HomePage = () => {
             <Carousel/>
             <FeaturedFilms/>
             <FeaturedTvShow/>
+            <NewReleases/>
+            <NewTvReleases/>
+            <Footer/>
 
         </div>
     )

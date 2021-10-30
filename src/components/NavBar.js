@@ -7,6 +7,7 @@ import movieHutLogo from '../assets/images/MovieHutLogo.png'
 import Search from '../components/Search';
 import TokenContext from '../Context/TokenContext'
 import LoginContext from '../Context/LoginContext'
+import SearchContext from '../Context/SearchContext';
 import {useHistory} from "react-router-dom"
 
 
@@ -14,8 +15,8 @@ const NavBar = () => {
 
   const {token,setToken} = useContext(TokenContext)
   const {isLoggedIn, setIsLoggedIn} = useContext(LoginContext)
-  const [ searchBarVisibility, setSearchBarVisibility] = useState(false);
 
+  const {searchBarVisibility, setSearchBarVisibility}= useContext(SearchContext);
 
   const redirect = useHistory();
 
@@ -28,7 +29,7 @@ const NavBar = () => {
           alert("You have been logged out. Good bye!");
           
           setIsLoggedIn({user:null, status:false});
-          redirect.push("/");
+          //redirect.push("/");
       }
 
 
@@ -89,7 +90,7 @@ const NavBar = () => {
           </Link>
           <div className='mr-5 has-dropdown'><AiFillCaretDown/>
              <Link>Profile</Link>
-            <Link onClick={onLogout}>Log Out </Link>
+            <Link to="/" onClick={onLogout}>Log Out </Link>
           </div>
           
           </>

@@ -138,10 +138,18 @@ body{
   height: 100px;
 }
 
-#search-bar{
+.search-bar{
   width: 100%;
   background: rgb(0,0,0);
   background: linear-gradient(90deg, rgba(0,0,0,1) 24%, rgba(37,150,190,1) 100%);
+  height: 100%;
+  border: none;
+  font-size: 40px;
+  color: azure;
+  padding: 10px;
+}
+
+#search-input{
   height: 100%;
   border: none;
   font-size: 40px;
@@ -155,7 +163,8 @@ body{
 #featured-film {
   background-color:#081c2c ;
 }
-#featured-film >div > div > div> p:nth-child(2){
+#featured-film >div > div > div> p:nth-child(2),
+#new-releases>div > div > div> p:nth-child(2){
   justify-self: end;
   margin-right: 40px;
 }
