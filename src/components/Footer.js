@@ -5,9 +5,10 @@ import node from '../assets/images/nodejs-icon.svg'
 import react from '../assets/images/reactjs.svg'
 import express from '../assets/images/express.svg'
 import google from '../assets/images/google-play.svg'
+import { Link } from 'react-router-dom'
 const Footer = () => {
     return (
-        <div style={{height:'400px',borderTop:"1px Solid rgba(37,150,190,1)",paddingBottom:"10px"}}>
+        <div style={{height:'400px',borderTop:"1px Solid rgba(37,150,190,1)",paddingBottom:"10px",backgroundColor:'#081c2c'}}>
             <div className='container'style={{height:'100%'}}>
 
             
@@ -20,17 +21,17 @@ const Footer = () => {
                         </div>
                        <div className='grid col-2' style={{justifyItems:'center'}}>
 
-                            <div>
-                                    <div>Watch</div>
-                                    <div>Tv Show</div>
-                                    <div>Movies</div>
+                            <div className='has-text-white'>
+                                    <h1 className='title is-size-4 has-text-white'>Watch</h1>
+                                   <Link to='/Tv Shows'> <div>Tv Show</div></Link>
+                                    <Link to='/Movies'><div>Movies</div></Link>
                                 
                                 </div>
                             
-                            <div>
-                                <div>Featured</div>
-                                <div>Featured Movies</div>
-                                <div>Featured Tv Show</div>
+                            <div className='has-text-white'>
+                                <h1 className='title is-size-4 has-text-white'>Featured</h1>
+                                <Link><div>Featured Movies</div></Link>
+                                <Link><div>Featured Tv Show</div></Link>
                             </div>
                        </div>
                        

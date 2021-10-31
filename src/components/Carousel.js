@@ -32,7 +32,7 @@ const Carousel = ()=> {
                )) 
                   
             }        */
-            flyer.map(i=>(<Slide key={i._id} id={i._id} img={i.img}/>))
+            flyer.map(i=>(<Slide key={i._id} id={i._id} img={i.poster}/>))
             }
             
          </Slider>

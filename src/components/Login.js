@@ -50,7 +50,7 @@ const Login = () => {
             {
 
                 alert("You are a user")
-                history.push("/user"); 
+                history.push("/"); 
             }
             
             

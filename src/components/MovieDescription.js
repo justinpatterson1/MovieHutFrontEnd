@@ -20,8 +20,15 @@ const MovieDescription = () => {
         fetch(`http://localhost:4000/movie/${id}`)
         .then(res => res.json())
         .then((json)=>{
+            
+            //setDescription(json.data);
+            let date = json.data.release_date
+            date = date.slice(0,10)
+            json.data.release_date = date
 
-            setDescription(json.data);
+            
+            setDescription(json.data)
+
         })
         .catch(err=>{console.log(`Error:${err}`)})
     }, [])
@@ -81,27 +88,55 @@ const MovieDescription = () => {
         
     }
 
+    const addToCartRent=()=>{
+
+        const item = 
+        {
+            _id:description._id,
+            name:description.name,
+            img:description.img,
+            cost:description.price,
+            order:"Rent",
+            quantity:0
+
+        }
+
+
+        user.cart.splice(1,0,item)
+        console.log(user)
+        fetch(`http://localhost:4000/users/${isLoggedIn.user._id}`,{
+            method:'PUT',
+            headers:{'Content-Type': 'application/json'},
+            body:JSON.stringify(user)
+        })
+    }
+
     return (
         <div id='description-page' className='container' style={imageStyle}>
-            <div style={{position:'relative'}}>
+            <div className='p-4' style={{position:'relative'}}>
             
-            <div className='grid col-2' style={{color:'white', alignItems:'center'}}>
+            <div className='above'>
+            <div className='grid col-2 ' style={{color:'white', alignItems:'center'}}>
                 
-                <div className='grid col-2'>
-                    <img src={description.img} style={{width:"225px",height:"350px"}} alt="" srcset="" />
+                <div className='grid col-2 above'>
+                    <img className='pl-3 pt-4' src={description.img} style={{width:"225px",height:"350px"}} alt="" srcset="" />
                     <div>
-                        <div>
+                        <div className='above'>
                             <h1 className='is-size-3'>{description.name}</h1>
                             <div>{description.genre}|Other|{description.release_date}</div>
                             <p>Rating:{description.rating}/10</p>
                         </div>
-                    <div className='mt-4 mb-4'>
+                    <div className='mt-4 mb-4 above'>
                             <h2>
                                 {description.description}
+                                
                             </h2>
                         </div> 
-                        <div className='grid col-2' style={{columnGap:'20px'}}>
-                            <div className='p-2 has-background-primary button'>Rent</div>
+                        <div className='grid col-2 above' style={{columnGap:'20px'}}>
+                            <div className='p-2 has-background-primary button' onClick={()=>{
+                                addToCartRent()
+                                history.push(`/cart/${isLoggedIn.user._id}`)
+                            }}>Rent</div>
                             <div className='p-2 has-background-primary button' onClick={()=>{
                             
                                 addToCart()
@@ -110,6 +145,8 @@ const MovieDescription = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+            
             </div>
             <div className='iq'></div>
             </div>

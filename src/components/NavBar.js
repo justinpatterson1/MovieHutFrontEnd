@@ -17,6 +17,7 @@ const NavBar = () => {
   const {isLoggedIn, setIsLoggedIn} = useContext(LoginContext)
 
   const {searchBarVisibility, setSearchBarVisibility}= useContext(SearchContext);
+  const[dropDown,setDropdown] = useState(false)
 
   const redirect = useHistory();
 
@@ -64,9 +65,16 @@ const NavBar = () => {
         TV Shows
       </Link>
 
-      <Link to='/admin' class="navbar-item">
+      {isLoggedIn.user.level === 'Admin'?
+          <Link to='/admin' class="navbar-item">
           Admin
-      </Link>
+        </Link>
+        :
+        <Link to='/admin' class="navbar-item">
+          Admin
+        </Link>
+      }
+    
     
     </div>
 
@@ -81,36 +89,52 @@ const NavBar = () => {
             <FiSearch/>     
         </div>
         
-        {isLoggedIn.status
+        {!isLoggedIn.status
             ?
-        
-          <>
-          <Link to={`/cart/${isLoggedIn.user._id}`} class="button is-primary">
+            <>
+            <Link to='/sign-up' class="button is-primary">
+              <strong>Sign Up</strong>
+            </Link>
+            <Link to='/auth' class="button is-light">
+              Log in
+            </Link>
+            </>
+           
+            :
+            <>
+            <Link to={`/cart/${isLoggedIn.user._id}`} class="button is-primary">
                <AiOutlineShoppingCart/>
-          </Link>
-          <div className='mr-5 has-dropdown'><AiFillCaretDown/>
-             <Link>Profile</Link>
-            <Link to="/" onClick={onLogout}>Log Out </Link>
-          </div>
-          
-          </>
-          :
-          <>
-          <Link to='/sign-up' class="button is-primary">
-            <strong>Sign Up</strong>
-          </Link>
-          <Link to='/auth' class="button is-light">
-            Log in
-          </Link>
-          </>
-
-          
+            </Link>
+            <AiFillCaretDown onClick={()=>{
+              setDropdown(!dropDown)
+            }}/>
+            </>
           }
         </div>
       </div>
     </div>
   </div>
 </nav>
+{isLoggedIn.status?
+  
+<div className='grid col-1'>
+  <div id='drop-down' className={dropDown?"grid":'hide'}>
+  <>
+          
+          <div className='mr-5 grid col-1' style={{justifyItems:'center'}}>
+             <Link to='/user'>Profile</Link>
+            <Link to="/" onClick={onLogout}>Log Out </Link>
+          </div>
+          
+          </>
+  </div>
+</div>
+:
+
+""
+}
+
+
 <Search setSearchBarVisibility={setSearchBarVisibility} searchBarVisibility={searchBarVisibility} />
 
  </div>

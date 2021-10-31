@@ -31,6 +31,19 @@ const CartList = ({no,name,img,price,order,key,itemID,cart,setCart,subtotal,setS
 
      console.log(id)
 
+     useEffect(()=>{
+
+        fetch(`http://localhost:4000/users/${id}`)
+        .then(res => res.json())
+        .then((json)=>{
+
+            setCart(json.data.cart)
+            
+        })
+    },[])
+    
+    
+
      const setCartItemQty = (q)=>{
         fetch(`http://localhost:4000/users/${id}`)
         .then(res => res.json())
@@ -120,14 +133,22 @@ const CartList = ({no,name,img,price,order,key,itemID,cart,setCart,subtotal,setS
         .then(res => res.json())
         .then((json)=>{
 
+
             console.log(json.data)
 
            item = [...cart]
+           let deletedSubtotal = subtotal
+           let deletedQuanity = quantity
+           let deletedPrice = price
+
+           let newSubtotal = deletedSubtotal - (deletedQuanity * deletedPrice)
 
            let deletedItem = item.filter((i)=>{return i._id !== itemID})
 
            console.log(deletedItem)
            setCart(deletedItem)
+         
+           setSubtotal(newSubtotal)
            json.data.cart = deletedItem
 
            let newData = json.data

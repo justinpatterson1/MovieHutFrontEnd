@@ -103,7 +103,7 @@ const MovieRow = ({id,name,rating,img}) => {
         .then((json)=>{
         
             setFlyer([...flyer,{id:movieToBeUpdated._id,name:movieToBeUpdated.poster}])
-            console.log(json.data)
+            
         })
         .catch(err=>console.log(err))
                   // .then(res => res.json())

@@ -50,7 +50,7 @@ const Search = (props) => {
             </div>
             <div>
                 {
-                    results.map((r)=>(<SearchResult key={r._id} id={r._id} name={r.name} />)) 
+                    results.map((r)=>(<SearchResult key={r._id} id={r._id} name={r.name}  setSearchBar={setSearchBar}/>)) 
                 }
                
             </div>

@@ -21,6 +21,7 @@ import TokenContext from '../Context/TokenContext'
 import LoginContext from '../Context/LoginContext';
 import SearchContext from '../Context/SearchContext';
 import NewReleasesContext from '../Context/NewReleasesContext';
+import UserPage from '../pages/UserPage'
 
 
 import jwtDecode from 'jwt-decode';
@@ -106,7 +107,8 @@ function App() {
     type:"",
     genre:"",
     trailer:"",
-    img:""
+    img:"",
+    poster:""
 })
 
 
@@ -116,7 +118,7 @@ useEffect(() => {
   .then((json)=>{
   
       setFlyer(json.data)
-      console.log(json.data)
+      console.log(flyer)
   })
   .catch(err=>console.log(err))
   
@@ -153,7 +155,7 @@ useEffect(() => {
           console.log(json.data)
       })
 
-      alert(token)
+  
       console.log(token)
    }, [])
 
@@ -165,7 +167,7 @@ useEffect(() => {
         console.log(json.data)
     })
 
-    alert(token)
+    
     console.log(token)
  }, [])
 
@@ -177,7 +179,7 @@ useEffect(() => {
       console.log(json.data)
   })
 
-  alert(token)
+  
   console.log(token)
 }, [])
 
@@ -236,6 +238,11 @@ useEffect(() => {
 
             </Route>
             
+            <Route exact path="/user">
+
+                 <UserPage/>
+
+            </Route>
 
 
             <ProtectedRoute  path="/user" role="User" component={( <h1>Welcome</h1>)}/>

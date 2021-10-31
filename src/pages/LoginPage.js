@@ -1,6 +1,7 @@
 import React from 'react'
 import NavBar from '../components/NavBar'
 import Login from '../components/Login'
+import Footer from '../components/Footer'
 
 
 
@@ -9,6 +10,7 @@ const LoginPage = () => {
         <div>
             <NavBar/>
             <Login/>
+            <Footer/>
         </div>
     )
 }

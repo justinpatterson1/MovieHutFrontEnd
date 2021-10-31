@@ -13,18 +13,19 @@ const EditModal = () => {
     const {editFormVisible,setEditFormVisible} = useContext(EditFormContext);
     const {update,setUpdate} = useContext(UpdateContext)
     const{movie,setMovie} = useContext(MovieContext);
-    const {formInput,setFormInput} = useContext(FormInputContext)
-//     const[formInput,setFormInput] = useState({    
-//         name:"",
-//         rating:0,
-//         price:0,
-//         featured:false,
-//         description:"",
-//         type:"",
-//         genre:"",
-//         trailer:"",
-//         img:""
-// })
+   // const {formInput,setFormInput} = useContext(FormInputContext)
+    const[formInput,setFormInput] = useState({    
+        name:"",
+        rating:0,
+        price:0,
+        featured:false,
+        description:"",
+        type:"",
+        genre:"",
+        trailer:"",
+        img:"",
+        poster:""
+ })
 
 
 
@@ -38,7 +39,7 @@ const EditModal = () => {
         const formData = new FormData()
 
         let image= document.querySelector(".file-input") //formInput.img 
- 
+        let bg= document.querySelector(".bgImage")
         formData.append("name",formInput.name)
         formData.append("rating",formInput.rating)
         formData.append("price",formInput.price)
@@ -47,7 +48,8 @@ const EditModal = () => {
         formData.append("type",formInput.type)
         formData.append("genre",formInput.genre)
         formData.append("trailer",formInput.trailer)
-        formData.append("img",image.files[0])
+        formData.append("img",formInput.img.files[0])
+        formData.append("poster",formInput.poster.files[0])
 
         console.log("whats wrong")
         console.log(formData)
@@ -72,7 +74,8 @@ const EditModal = () => {
                 type:"",
                 genre:"",
                 trailer:"",
-                img:""
+                img:"",
+                poster:""
         })
         
         alert("Movie added")
@@ -94,6 +97,7 @@ const EditModal = () => {
         alert(id)
         
         let image= document.querySelector(".file-input")
+        let bg= document.querySelector(".bgImage")
         
         const formData = new FormData()
 
@@ -105,7 +109,8 @@ const EditModal = () => {
         formData.append("type",formInput.type)
         formData.append("genre",formInput.genre)
         formData.append("trailer",formInput.trailer)
-        formData.append("img",image.files[0])
+        formData.append("img",formInput.img.files[0])
+        formData.append("poster",formInput.poster.files[0])
 
 
         fetch(`http://localhost:4000/movie/${id}`,{
@@ -251,11 +256,11 @@ const EditModal = () => {
 
                         <div class="file mt-3">
                             <label class="file-label">
-                                <input className="file-input" type="file" name="file" value={formInput.img} onChange={(evt)=>{
+                                <input className="file-input" type="file" name="file"  onChange={(evt)=>{
 
                                     setFormInput({
                                         ...formInput,
-                                        img:evt.target.value
+                                        img:evt.target
                                     })
 
                                 }}/>
@@ -269,6 +274,26 @@ const EditModal = () => {
                                 </span>
                             </label>
                             </div> 
+                            <div class="file mt-3">
+                            <label class="file-label">
+                                <input className="file-input bgImage" type="file" name="file"  onChange={(evt)=>{
+
+                                    setFormInput({
+                                        ...formInput,
+                                        poster:evt.target
+                                    })
+
+                                }}/>
+                                <span class="file-cta">
+                                    <span class="file-icon">
+                                        <i class="fas fa-upload"></i>
+                                    </span>
+                                    <span class="file-label">
+                                        Choose a file…
+                                    </span>
+                                </span>
+                            </label>
+                            </div>
 
                         <div  style={{textAlign:'center'}}>
                             <input className='p-3' type="submit" value="submit" />

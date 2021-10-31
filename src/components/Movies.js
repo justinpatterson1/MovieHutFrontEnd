@@ -10,6 +10,7 @@ const Movies = () => {
     const {movie,setMovie} = useContext(MovieContext)
     const [moviePageList,setMoviePageList] = useState([])
     const [page,setPage] = useState(1)
+    const [filter,setFilter] = useState('all')
 
     useEffect(() => {
        
@@ -29,8 +30,9 @@ const Movies = () => {
         let i = page+ 1;
         
         console.log(page)
-        
-        fetch(`http://localhost:4000/movie?type=Movie&page=${i}`)
+
+        if(filter === 'all'){
+            fetch(`http://localhost:4000/movie?type=Movie&page=${i}`)
         .then(res=>res.json())
         .then((json)=>{
             if(json.data.length !=0){
@@ -41,6 +43,19 @@ const Movies = () => {
         
             
         })
+        }else if(filter==='releaseDate'){
+            fetch(`http://localhost:4000/movie?type=Movie&sort=-1&page=${i}`)
+            .then(res=>res.json())
+            .then((json)=>{
+                if(json.data.length !=0){
+                setMoviePageList(json.data)
+                setPage(i)
+                console.log(json.data)
+                }
+            })
+            }
+        
+        
     }
 
     const previousPage = (evt)=>{
@@ -52,16 +67,29 @@ const Movies = () => {
        
         console.log(page)
         if(page > 1){
-        fetch(`http://localhost:4000/movie?type=Movie&page=${i}`)
+            if(filter==='all'){
+                fetch(`http://localhost:4000/movie?type=Movie&page=${i}`)
+                .then(res=>res.json())
+                .then((json)=>{
+                    setMoviePageList(json.data)
+                    setPage(i)
+                    console.log(json.data)
+                    
+                })
+            }
+
+    else if(filter==='releaseDate'){
+        fetch(`http://localhost:4000/movie?type=Movie&sort=-1&page=${i}`)
         .then(res=>res.json())
         .then((json)=>{
             setMoviePageList(json.data)
             setPage(i)
             console.log(json.data)
-            
         })
+        }
     }
     }
+    
 
 
     return (
@@ -76,11 +104,22 @@ const Movies = () => {
                                     .then((json)=>{
                             
                                         setMoviePageList(json.data)
+                                        setFilter('all')
+                                        setPage(1)
                                     })
                                 }} >All</div>
                             </div>
                             <div style={{borderRight:"2px solid #2596be"}}>
-                                <div >Release Date</div>
+                                <div onClick={()=>{
+                                    fetch('http://localhost:4000/movie?type=Movie&sort=-1&page=1')
+                                    .then(res =>  res.json())
+                                    .then((json)=>{
+                            
+                                        setMoviePageList(json.data)
+                                        setFilter('releaseDate')
+                                        setPage(1)
+                                    })
+                                }}>Release Date</div>
                             </div>
                             <div>
                                 <div >Recently Added</div>

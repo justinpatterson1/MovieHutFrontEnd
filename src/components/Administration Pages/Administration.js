@@ -6,12 +6,14 @@ import EditModal from './EditModal'
 import EditFormContext from '../../Context/EditFormContext'
 import {BiRightArrow} from 'react-icons/bi'
 import {BiLeftArrow} from 'react-icons/bi'
+import LoginContext from '../../Context/LoginContext'
 
 
 const Administration = () => {
 
     const {movie,setMovie} = useContext(MovieContext);
     const {editFormVisible,setEditFormVisible} = useContext(EditFormContext)
+    const {isLoggedIn} = useContext(LoginContext)
     const [adminView,setAdminView] = useState('movie')
     const [page,setPage] = useState(1)
     console.log(movie)
@@ -160,7 +162,7 @@ useEffect(() => {
         <div>
         <EditModal/>
         <div id='admin-page' className="pb-3">
-      
+        <h1 className='ml-3 is-size-3 has-text-white'>Welcome,{`${isLoggedIn.user.firstName}  ${isLoggedIn.user.lastName}`}</h1>
         <div className="type-selector"  >
             <div className='grid col-2' style={{textAlign:"center"}}>
             {/* <div style={{borderRight:"2px solid white"}}>
