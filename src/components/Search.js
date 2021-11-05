@@ -22,10 +22,15 @@ const Search = (props) => {
         <>
             <div id="search" className={props.searchBarVisibility?"grid col-2 search-bar":"hide"} >
                 <input id='search-input'type="text" name="search" className="" style={{backgroundColor:"transparent",border:'none'}}value={searchBar.value} placeholder="Search Name Of Movie...." onChange={(evt)=>{
-
+                    //    let i = evt.target.value
+                    //    let newQuery = i.substring(1)
+                    //    i=i.charAt(0)
+                    //    i.toUpperCase
                         setSearchBar({
                             value:evt.target.value
                         })
+
+                        //alert(i)
                         //search()
                         
                         fetch(`http://localhost:4000/movie?q=${evt.target.value}`)

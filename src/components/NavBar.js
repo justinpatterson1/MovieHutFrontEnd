@@ -29,8 +29,8 @@ const NavBar = () => {
           localStorage.removeItem("token");
           alert("You have been logged out. Good bye!");
           
-          setIsLoggedIn({user:null, status:false});
-          //redirect.push("/");
+          setIsLoggedIn({user:"", status:false});
+         // redirect.push("/");
       }
 
 
@@ -70,9 +70,7 @@ const NavBar = () => {
           Admin
         </Link>
         :
-        <Link to='/admin' class="navbar-item">
-          Admin
-        </Link>
+       ""
       }
     
     

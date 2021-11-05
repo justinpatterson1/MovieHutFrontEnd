@@ -208,3 +208,16 @@ body{
   justify-self: end;
   
 }
+
+#check-out{
+  width: 200px;
+  height: 200px;
+  background-color: white;
+  border-radius: 50px;
+  align-items: center;
+}
+
+.admin-search-grid
+{
+  grid-template-columns: 1fr 100px;
+}

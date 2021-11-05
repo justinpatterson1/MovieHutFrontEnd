@@ -96,7 +96,7 @@ const Movies = () => {
         <div style={{backgroundColor:'#081c2c'}}>
             <div style={{borderBottom:"1px solid #2596be" , paddingBottom:"20px"}}>
                 <div className="type-selector"  >
-                    <div className='grid col-3' style={{textAlign:"center"}}>
+                    <div className='grid col-2' style={{textAlign:"center"}}>
                         <div style={{borderRight:"2px solid #2596be"}}>
                                 <div onClick={()=>{
                                     fetch('http://localhost:4000/movie?type=Movie')
@@ -109,7 +109,7 @@ const Movies = () => {
                                     })
                                 }} >All</div>
                             </div>
-                            <div style={{borderRight:"2px solid #2596be"}}>
+                            <div >
                                 <div onClick={()=>{
                                     fetch('http://localhost:4000/movie?type=Movie&sort=-1&page=1')
                                     .then(res =>  res.json())
@@ -121,9 +121,7 @@ const Movies = () => {
                                     })
                                 }}>Release Date</div>
                             </div>
-                            <div>
-                                <div >Recently Added</div>
-                            </div>
+                            
                         
                         </div>
                     </div>

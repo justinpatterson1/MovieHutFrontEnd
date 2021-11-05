@@ -43,13 +43,13 @@ const Login = () => {
             //redirect 
             if(currentLoggedInUser.level==='Admin')
             {
-                alert("YOu are an admin")
+                
                 history.push("/admin");  
             }
             else if (currentLoggedInUser.level==='User')
             {
 
-                alert("You are a user")
+                
                 history.push("/"); 
             }
             

@@ -13,19 +13,18 @@ const EditModal = () => {
     const {editFormVisible,setEditFormVisible} = useContext(EditFormContext);
     const {update,setUpdate} = useContext(UpdateContext)
     const{movie,setMovie} = useContext(MovieContext);
-   // const {formInput,setFormInput} = useContext(FormInputContext)
-    const[formInput,setFormInput] = useState({    
-        name:"",
-        rating:0,
-        price:0,
-        featured:false,
-        description:"",
-        type:"",
-        genre:"",
-        trailer:"",
-        img:"",
-        poster:""
- })
+    const {formInput,setFormInput} = useContext(FormInputContext)
+//     const[formInput,setFormInput] = useState({    
+//         name:"",
+//         rating:0,
+//         price:0,
+//         featured:false,
+//         description:"",
+//         type:"",
+//         genre:"",
+//         trailer:"",
+//         img:""
+// })
 
 
 
@@ -39,7 +38,7 @@ const EditModal = () => {
         const formData = new FormData()
 
         let image= document.querySelector(".file-input") //formInput.img 
-        let bg= document.querySelector(".bgImage")
+ 
         formData.append("name",formInput.name)
         formData.append("rating",formInput.rating)
         formData.append("price",formInput.price)
@@ -48,8 +47,7 @@ const EditModal = () => {
         formData.append("type",formInput.type)
         formData.append("genre",formInput.genre)
         formData.append("trailer",formInput.trailer)
-        formData.append("img",formInput.img.files[0])
-        formData.append("poster",formInput.poster.files[0])
+        formData.append("img",image.files[0])
 
         console.log("whats wrong")
         console.log(formData)
@@ -75,7 +73,7 @@ const EditModal = () => {
                 genre:"",
                 trailer:"",
                 img:"",
-                poster:""
+            
         })
         
         alert("Movie added")
@@ -97,7 +95,7 @@ const EditModal = () => {
         alert(id)
         
         let image= document.querySelector(".file-input")
-        let bg= document.querySelector(".bgImage")
+        
         
         const formData = new FormData()
 
@@ -109,8 +107,7 @@ const EditModal = () => {
         formData.append("type",formInput.type)
         formData.append("genre",formInput.genre)
         formData.append("trailer",formInput.trailer)
-        formData.append("img",formInput.img.files[0])
-        formData.append("poster",formInput.poster.files[0])
+        formData.append("img",image.files[0])
 
 
         fetch(`http://localhost:4000/movie/${id}`,{
@@ -256,11 +253,11 @@ const EditModal = () => {
 
                         <div class="file mt-3">
                             <label class="file-label">
-                                <input className="file-input" type="file" name="file"  onChange={(evt)=>{
+                                <input className="file-input" type="file" name="file" value={formInput.img} onChange={(evt)=>{
 
                                     setFormInput({
                                         ...formInput,
-                                        img:evt.target
+                                        img:evt.target.value
                                     })
 
                                 }}/>
@@ -275,12 +272,12 @@ const EditModal = () => {
                             </label>
                             </div> 
                             <div class="file mt-3">
-                            <label class="file-label">
-                                <input className="file-input bgImage" type="file" name="file"  onChange={(evt)=>{
+                            {/* <label class="file-label">
+                                <input className="file-input bgImage" type="file" name="file" value={formInput.bgImg} onChange={(evt)=>{
 
                                     setFormInput({
                                         ...formInput,
-                                        poster:evt.target
+                                        bgImg:evt.target.value
                                     })
 
                                 }}/>
@@ -292,7 +289,7 @@ const EditModal = () => {
                                         Choose a file…
                                     </span>
                                 </span>
-                            </label>
+                            </label> */}
                             </div>
 
                         <div  style={{textAlign:'center'}}>

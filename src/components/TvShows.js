@@ -12,63 +12,92 @@ const TvShows = () => {
 
     const [page,setPage] = useState(1)
 
-    useEffect(() => {
+    const [filter,setFilter] = useState('all')
+
+    
+        useEffect(() => {
        
-        fetch('http://localhost:4000/movie?type=Tv Show')
-        .then(res =>  res.json())
-        .then((json)=>{
-
-            setTvShowPageList(json.data)
-        })
-
-    }, [])
-
-    const nextPage = (evt)=>{
-
-        evt.preventDefault()
-
-        let i = page+ 1;
+            fetch('http://localhost:4000/movie?type=Tv Show')
+            .then(res =>  res.json())
+            .then((json)=>{
+    
+                setTvShowPageList(json.data)
+            })
+    
+        }, [])
+    
+        const nextPage = (evt)=>{
+    
+            evt.preventDefault()
+    
+            let i = page+ 1;
+            
+            console.log(page)
+    
+            if(filter === 'all'){
+                fetch(`http://localhost:4000/movie?type=Tv Show&page=${i}`)
+            .then(res=>res.json())
+            .then((json)=>{
+                if(json.data.length !=0){
+                    setTvShowPageList(json.data)
+                    setPage(i)
+                }
+               
+            
+                
+            })
+            }else if(filter==='releaseDate'){
+                fetch(`http://localhost:4000/movie?type=Tv Show&sort=-1&p=${i}`)
+                .then(res=>res.json())
+                .then((json)=>{
+                    if(json.data.length !=0){
+                        setTvShowPageList(json.data)
+                    setPage(i)
+                    console.log(json.data)
+                    }
+                })
+                }
+            
+            
+        }
+    
+        const previousPage = (evt)=>{
+    
+            evt.preventDefault()
+    
+            let i = page -1
         
-        console.log(page)
-        
-        fetch(`http://localhost:4000/movie?type=Tv Show&page=${i}`)
-        .then(res=>res.json())
-        .then((json)=>{
-            if(json.data.length !=0){
+           
+            console.log(page)
+            if(page > 1){
+                if(filter==='all'){
+                    fetch(`http://localhost:4000/movie?type=Tv Show&page=${i}`)
+                    .then(res=>res.json())
+                    .then((json)=>{
+                        setTvShowPageList(json.data)
+                        setPage(i)
+                        console.log(json.data)
+                        
+                    })
+                }
+    
+        else if(filter==='releaseDate'){
+            fetch(`http://localhost:4000/movie?type=Tv Show&sort=-1&p=${i}`)
+            .then(res=>res.json())
+            .then((json)=>{
                 setTvShowPageList(json.data)
                 setPage(i)
+                console.log(json.data)
+            })
             }
-           
+        }
+        }
         
-            
-        })
-    }
-
-    const previousPage = (evt)=>{
-
-        evt.preventDefault()
-
-        let i = page -1
-    
-        
-        console.log(page)
-        if(page > 1){
-        fetch(`http://localhost:4000/movie?type=Tv Show&page=${i}`)
-        .then(res=>res.json())
-        .then((json)=>{
-            setTvShowPageList(json.data)
-            console.log(json.data)
-            setPage(i)
-            
-        })
-    }
-    }
-
     return (
         <div style={{backgroundColor:'#081c2c'}}>
             <div style={{borderBottom:"1px solid #2596be" , paddingBottom:"20px"}}>
                 <div className="type-selector"  >
-                    <div className='grid col-3' style={{textAlign:"center"}}>
+                    <div className='grid col-2' style={{textAlign:"center"}}>
                         <div style={{borderRight:"2px solid #2596be"}}>
                                 <div onClick={()=>{
                                     fetch('http://localhost:4000/movie?type=Tv Show')
@@ -76,15 +105,24 @@ const TvShows = () => {
                                     .then((json)=>{
                             
                                         setTvShowPageList(json.data)
+                                        setFilter('all')
+                                        setPage(1)
                                     })
                                 }} >All</div>
                             </div>
-                            <div style={{borderRight:"2px solid #2596be"}}>
-                                <div >Release Date</div>
+                            <div >
+                                <div onClick={()=>{
+                                     fetch('http://localhost:4000/movie?type=Tv Show&sort=-1&p=1')
+                                     .then(res =>  res.json())
+                                     .then((json)=>{
+                             
+                                        setTvShowPageList(json.data)
+                                         setFilter('releaseDate')
+                                         setPage(1)
+                                     })
+                                }} >Release Date</div>
                             </div>
-                            <div>
-                                <div >Recently Added</div>
-                            </div>
+                            
                         
                         </div>
                     </div>

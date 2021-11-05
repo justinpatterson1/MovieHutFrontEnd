@@ -62,7 +62,7 @@ const Cart = () => {
                         cart.map(((c,index)=>(<CartList no={index} key={c._id} itemID={c._id} name={c.name} img={c.img} price={c.cost} order={c.order} q={c.quantity} cart={cart} setCart={setCart} subtotal={subtotal} setSubtotal={setSubtotal}/>)))
                     }
                     </div>
-                    <div>
+                    <div id='check-out' className='mt-4 ml-5 grid col-1'>
                         <div style={{textAlign:'center'}}> 
                             <h1>Check-Out</h1>
                             <div>Subtotal:{subtotal}</div>

@@ -8,7 +8,7 @@ import FormInputContext from '../../Context/FormInputContext'
 import FlyerContext from '../../Context/FlyerContext'
 import FeaturedFilmContext from '../../Context/FeaturedFilmContext'
 
-const MovieRow = ({id,name,rating,img,promoted,featured}) => {
+const MovieRow = ({id,firstname,lastname,address,email,cart,purchased,rented}) => {
     const {movie, setMovie} = useContext(MovieContext)
     const {update,setUpdate} = useContext(UpdateContext)
     const {editFormVisible,setEditFormVisible} = useContext(EditFormContext)
@@ -205,32 +205,15 @@ const demoteShow =()=>{
         
         <tr>
             <td>
-                <img style={{height:'100px',width:'100px'}} src={img}/>
+               {id}
             </td>
-            <td>{name}</td>
-            <td>{rating}</td>
-            <td>
-                
-                    <input type="checkbox" name="featured" id="featured" onClick={()=>{
-                        addFeaturedMovie()
-                    }} />
-                  
-            </td>
-            <td>
-                {promoted === true?
-                    <input type="checkbox" name="promote" id="promote" checked onClick={()=>{
-                             
-                        demoteShow()  
-                        }} />
-                :
-                <input type="checkbox" name="promote" id="promote" onClick={()=>{
-                      
-                    promoteShow()         
-                        
-                        }} />
-                }
-                
-            </td>
+            <td>{firstname}</td>
+            <td>{lastname}</td>
+            <td>{address}</td>
+            <td> {email} </td>
+            <td> {cart} </td>
+            <td> {purchased} </td>
+            <td>{rented}</td>
             <td onClick={()=>{
                 updateItem()
             }}><HiPencil/></td>
