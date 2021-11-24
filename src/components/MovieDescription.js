@@ -107,7 +107,7 @@ const MovieDescription = () => {
             _id:description._id,
             name:description.name,
             img:description.img,
-            cost:description.price,
+            cost:description.rent,
             order:"Rent",
             quantity:0
 
@@ -151,7 +151,7 @@ const MovieDescription = () => {
                             <div className='p-2 has-background-primary button' onClick={()=>{
                                 addToCartRent()
                                 history.push(`/cart/${isLoggedIn.user._id}`)
-                            }}>Rent</div>
+                            }}>Rent ${description.rent}</div>
                             <div className='p-2 has-background-primary button' onClick={()=>{
                             
                                 addToCart()

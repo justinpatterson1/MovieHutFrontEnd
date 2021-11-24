@@ -10,6 +10,8 @@ const SignUp = () => {
         email:"",
         password:""
     })
+
+    const [err,setErr] = useState('')
     const addNewUser = (evt)=>{
         evt.preventDefault();
 
@@ -20,6 +22,10 @@ const SignUp = () => {
 
             
         })
+        .then((json)=>{
+            setErr(err)
+            console.log(err)
+        })
         .catch(err=>{console.log(`Error:${err}`)})
         
         setUser({
@@ -28,12 +34,14 @@ const SignUp = () => {
             email:"",
             password:""
         })
-        console.log(user)
+        
     }
     return (
         <div className='grid col-1' style={{alignItems:'center' , height:'100vh'}}>
+
             <div className='' style={{width:'30%',margin:'0 auto'}}>
             <h1 className='mb-3' style={{textAlign:'center',color:"white", fontSize:'2rem'}}>Sign Up</h1>
+                <p style={{color:'red',fontSize:'1rem'}}>{err}</p>
                 <form onSubmit={(evt)=>{addNewUser(evt)}}>
                 <div>
                     <div className='grid col-2' style={{columnGap:'10px'}}>

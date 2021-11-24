@@ -1,13 +1,16 @@
-import React,{useContext,useEffect,useState} from 'react'
+import React,{useContext,useEffect,useState,useRef,useLayoutEffect} from 'react'
 import CartList from './CartList'
 import { useParams } from 'react-router'
+import MovieContext from '../../Context/MovieContext'
 const Cart = () => {
 
     const {id} = useParams()
     const [cart,setCart] = useState([])
-    const [subtotal,setSubtotal] = useState(0)
+    const [prac,setPrac] = useState(14.00)
+    const {subtotal,setSubtotal} = useContext(MovieContext)
 
-
+    const paypal = useRef(0)
+   
     
     useEffect(()=>{
 
@@ -37,11 +40,51 @@ const Cart = () => {
                  console.log(finalItemPrice +`finalItemPrice:${i}`)
                 
             } 
-            setSubtotal(cost)
+            // cost  = (Math.round(cost * 100) / 100).toFixed(2)
+             setSubtotal(cost)
         })
 
     },[])
 
+    useLayoutEffect(()=>{
+        
+        console.log(subtotal)
+        window.paypal.Buttons({
+
+            // Sets up the transaction when a payment button is clicked
+            createOrder: function(data, actions) {
+              return actions.order.create({
+                purchase_units: [{
+                  intent:'CAPTURE',
+                  description:'Cool stuff',
+                  amount: {
+                    currency_code:'USD',
+                    value:subtotal // Can reference variables or functions. Example: `value: document.getElementById('...').value`
+                  }
+                }]
+              });
+            },
+    
+            // Finalize the transaction after payer approval
+            onApprove: async (data, actions) =>{
+              const order = await actions.order.capture()
+              .then(function(orderData) {
+                // Successful capture! For dev/demo purposes:
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    var transaction = orderData.purchase_units[0].payments.captures[0];
+                    alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+    
+                // When ready to go live, remove the alert and show a success message within this page. For example:
+                // var element = document.getElementById('paypal-button-container');
+                // element.innerHTML = '';
+                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                // Or go to another URL:  actions.redirect('thank_you.html');
+              });
+            },
+            onError:(err)=>{console.log(err)}
+          }).render('#check-out');
+    
+    },[])  
    
     return (
         <div>
@@ -62,14 +105,16 @@ const Cart = () => {
                         cart.map(((c,index)=>(<CartList no={index} key={c._id} itemID={c._id} name={c.name} img={c.img} price={c.cost} order={c.order} q={c.quantity} cart={cart} setCart={setCart} subtotal={subtotal} setSubtotal={setSubtotal}/>)))
                     }
                     </div>
-                    <div id='check-out' className='mt-4 ml-5 grid col-1'>
-                        <div style={{textAlign:'center'}}> 
+                    <div id='check-out' className='mt-4 ml-5 grid col-1' >
+                     <div style={{textAlign:'center'}}> 
                             <h1>Check-Out</h1>
                             <div>Subtotal:{subtotal}</div>
-                            <button>Check-Out</button>
-                        </div>
+                           
+                        </div> 
+
+                        
                     </div>
-                    </div>
+                    </div> 
                     
             </div>
             

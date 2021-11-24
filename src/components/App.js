@@ -81,6 +81,7 @@ function App() {
   const [NewTvReleases,setNewTvReleases] = useState([])
   const [update,setUpdate] = useState(false);
   const [token,setToken] = useState({})
+  const [subtotal,setSubtotal] = useState(0)
   const [ searchBarVisibility, setSearchBarVisibility] = useState(false);
   const [flyer,setFlyer] = useState([
    
@@ -189,7 +190,7 @@ useEffect(() => {
          
         <Router> 
 
-        <MovieContext.Provider value={{movie,setMovie}}>
+        <MovieContext.Provider value={{movie,setMovie,subtotal,setSubtotal}}>
          <EditFormContext.Provider value={{editFormVisible,setEditFormVisible}}>
            <UpdateContext.Provider value={{update,setUpdate}}>
              <FormInputContext.Provider value={{formInput,setFormInput}}>

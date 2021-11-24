@@ -90,7 +90,8 @@ const CartList = ({no,name,img,price,order,key,itemID,cart,setCart,subtotal,setS
 
         
          setQuantity(itemQuantity)
-
+        //    let n = (Math.round(newSub * 100) / 100)
+        //     console.log("n"+n)
          setSubtotal(newSub)
          setCost(c)
 
@@ -116,7 +117,8 @@ const CartList = ({no,name,img,price,order,key,itemID,cart,setCart,subtotal,setS
                 setSubtotal(0)
 
             }else{
-                setSubtotal(newSub)
+                let n = ((Math.round(newSub * 100) / 100))
+                setSubtotal(n)
             }
             setCost(c)
             setCartItemQty(itemQuantity)
